@@ -209,3 +209,29 @@ int main() {
     return 0;
 }
 */
+
+/*
+    Zadanie11:
+
+Code:
+
+int main() {
+    int a, b;
+    cin >> a;
+    cin >> b;
+
+    if (a > b) {
+        for (int i = b; i <= a; i++) {
+            if (i % 3 == 0) {
+                cout << i << endl;
+            }
+        }
+    } else {
+        for (int i = a; i <= b; i++) {
+            if (i % 3 == 0) {
+                cout << i << endl;
+            }
+        }
+    }
+}
+*/
