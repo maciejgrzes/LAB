@@ -417,7 +417,7 @@ int main() {
     Zadanie 16:
 
 Code:
-*/
+
 int main() {
     int l;
     cout << "Podaj liczbe w przedziale 1-10: " << endl;
@@ -437,3 +437,4 @@ int main() {
     cout << count << endl;
     return 0;
 }
+*/
