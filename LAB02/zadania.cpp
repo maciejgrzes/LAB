@@ -401,7 +401,6 @@ int main() {
 
 Code:
 
-*/
 int main() {
     int n, m;
     cin >> n;
@@ -410,5 +409,31 @@ int main() {
     for (int i = 0; i < n; i++) {
         cout << rand() % (m+1) << endl;
     }
+    return 0;
+}
+*/
+
+/*
+    Zadanie 16:
+
+Code:
+*/
+int main() {
+    int l;
+    cout << "Podaj liczbe w przedziale 1-10: " << endl;
+    cin >> l;
+    if (l < 1 || l > 10) {
+        cout << "Przedzial to 1-10!!" << endl;
+        return 1;
+    }
+    int temp;
+    int count = 0;
+    for (int i = 1; i <= 10; i++) {
+        int temp = rand() % 10 + 1;
+        if (temp == l) {
+            count++;
+        }
+    }
+    cout << count << endl;
     return 0;
 }
