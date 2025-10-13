@@ -94,8 +94,35 @@ int main() {
 
     return 0;
 }
+
+int main() {
+    float a;
+    float b;
+    cin >> a;
+    cout << endl;
+    cin >> b;
+
+    cout << a+b << " " << a*b << endl;
+
+    return 0;
+}
 */
 
 
 
+/*
+    Zadanie5:
 
+
+*/ 
+
+int main() {
+    int f;
+    cin >> f;
+    int c;
+
+    c = 5 * (f - 32) / 9;
+    cout << f << " stopni Fahrenheita to " << c << " stopni Celsjusza" << endl;
+
+    return 0;
+}
