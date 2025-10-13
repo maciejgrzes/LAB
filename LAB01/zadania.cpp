@@ -82,7 +82,7 @@ int main() {
     Zadanie4:
 
 
-
+a)
 int main() {
     int a;
     int b;
@@ -95,6 +95,8 @@ int main() {
     return 0;
 }
 
+
+b)
 int main() {
     float a;
     float b;
@@ -114,7 +116,7 @@ int main() {
     Zadanie5:
 
 
-*/ 
+Code:
 
 int main() {
     int f;
@@ -126,3 +128,4 @@ int main() {
 
     return 0;
 }
+*/ 
