@@ -407,10 +407,8 @@ int main() {
     cin >> n;
     cin >> m;
 
-    int temp;
     for (int i = 0; i < n; i++) {
-        int temp = rand() % (m+1);
-        cout << temp << endl;
+        cout << rand() % (m+1) << endl;
     }
     return 0;
 }
