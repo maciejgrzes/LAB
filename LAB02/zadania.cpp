@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <iostream>
 using namespace std;
 
@@ -378,7 +379,6 @@ int main() {
 
 Code:
 
-*/
 int main() {
     int a, b, c;
     cin >> a;
@@ -391,6 +391,26 @@ int main() {
         cout << a << endl;
     } else if (c < b && c < a) {
         cout << c << endl;
+    }
+    return 0;
+}
+*/
+
+/*
+    Zadanie15:
+
+Code:
+
+*/
+int main() {
+    int n, m;
+    cin >> n;
+    cin >> m;
+
+    int temp;
+    for (int i = 0; i < n; i++) {
+        int temp = rand() % (m+1);
+        cout << temp << endl;
     }
     return 0;
 }
