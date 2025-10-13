@@ -172,3 +172,18 @@ int main() {
 */
 
 
+/*
+    Zadanie9:
+
+Code:
+
+int main() {
+    int n;
+    cin >> n;
+    for (int i = 0; i <= 100; i++) {
+        if (i % n == 0) {
+            cout << i << endl;
+        }
+    }
+}
+*/
