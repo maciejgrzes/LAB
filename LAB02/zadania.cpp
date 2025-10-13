@@ -185,5 +185,27 @@ int main() {
             cout << i << endl;
         }
     }
+    return 0;
+}
+*/
+
+/*
+    Zadanie10:
+
+Code:
+
+int main() {
+    int n;
+    cin >> n;
+
+    int count = 0;
+
+    for (int i = 0; i <= 100; i++) {
+        if (i % n == 0) {
+            count++;
+        }
+    }
+    cout << count << endl;
+    return 0;
 }
 */
