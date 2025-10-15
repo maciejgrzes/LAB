@@ -24,6 +24,12 @@ int main() {
 }
 */
 
+/*
+    Zadanie2:
+
+Code:
+
+*/
 int main() {
     int a, b;
     cin >> a;
