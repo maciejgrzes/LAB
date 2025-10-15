@@ -6,7 +6,7 @@
 using namespace std;
 
 bool isNumber(const string& str) {
-    return !str.empty() && str.find_first_not_of("0123456789.") == string::npos;
+    return !str.empty() && str.find_first_not_of("0123456789.-") == string::npos;
 }
 
 bool isOperator(const string& str) {
