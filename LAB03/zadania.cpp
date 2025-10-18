@@ -75,4 +75,20 @@ int main () {
 }
 */
 
+/*
+    Zadanie5:
+
+Code:
+
+
+int main() {  
+    int i = 0;
+    while (true) {
+        cout << i << endl;
+        i++;
+    }
+    return 0;
+}
+*/
+
 
