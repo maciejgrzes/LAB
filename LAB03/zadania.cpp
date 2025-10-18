@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 using namespace std;
 
 /*
@@ -96,7 +97,6 @@ int main() {
 
 Code:
 
-*/
 int main() {
     int i = 0;
     while (true) {
@@ -109,3 +109,25 @@ int main() {
 
     return 0;
 }
+*/
+
+/*
+    Zadanie8:
+
+Code:
+
+
+int main() {
+    int n;
+    cin >> n;
+
+    for (int i = 2; i <= sqrt(n); i++) {
+        if (n % i == 0) {
+            cout << i << endl;
+            break;
+        }
+    }
+
+    return 0;
+}
+*/
