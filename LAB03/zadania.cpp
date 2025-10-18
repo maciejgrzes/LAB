@@ -91,4 +91,21 @@ int main() {
 }
 */
 
+/*
+    Zadanie7:
 
+Code:
+
+*/
+int main() {
+    int i = 0;
+    while (true) {
+        if (i % 2 != 0) {
+            cout << i << endl;
+        }
+        i++;
+        if (i == 200) {break;}
+    }
+
+    return 0;
+}
