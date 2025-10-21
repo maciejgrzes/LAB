@@ -1,3 +1,5 @@
+#include <iostream>
+#include <limits>
 #ifndef HEADER_INCLUDE
 
 #define HEADER_INCLUDE
@@ -26,5 +28,6 @@ void showMenu();
 
 bool outOfRange(double temp);
 
+void pressEnter();
 
 #endif

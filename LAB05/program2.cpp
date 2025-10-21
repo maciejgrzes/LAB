@@ -90,7 +90,6 @@ bool outOfRange(double temp) {
     }
     return false;
 }
-*/
 
 // Wait for the user to press Enter before continuing
 void pressEnter() {
@@ -102,6 +101,7 @@ void pressEnter() {
     cout << "Naciśnij Enter aby kontynuować...";
     cin.get();
 }
+*/
 
 int main() {
     double memory[100] = {0};

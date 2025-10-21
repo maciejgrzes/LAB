@@ -1,5 +1,6 @@
 #include "header.h"
 #include <iostream>
+#include <limits>
 using namespace std;
 
 // Check if the inputed temperature is not below absolute 0
@@ -87,4 +88,14 @@ bool outOfRange(double temp) {
         return true;
     }
     return false;
+}
+
+void pressEnter() {
+    if (cin.peek() == '\n')
+        cin.ignore();
+    else
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    cout << "Naciśnij Enter aby kontynuować...";
+    cin.get();
 }
