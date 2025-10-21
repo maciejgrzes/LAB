@@ -67,7 +67,7 @@ int main() {
            // checking for a valid number before adding to stack
            } else if (isNumber(token)) {
                 try {
-                    numbers.push(std::stod(token));
+                    numbers.push(stod(token));
                 } catch (const out_of_range& e) {
                     cerr << "Error: Number out of range '" << token << "'" << endl;
                     return 1;
