@@ -114,7 +114,7 @@ int main() {
     Zadanie6:
 
 Code:
-*/
+
 
 int fun(int n) {
     int tmp = 1;
@@ -132,3 +132,40 @@ int main() {
 
     return 0;
 }
+*/
+
+/*
+    Zadanie7:
+
+Code:
+
+
+void fun(int n) {
+    int tmp;
+    int count = 0;
+    for (int i = 1; i <= 10; i++) {
+        int temp = rand() % 9 + 1;
+        if (temp == n) {
+            count++;
+        }
+    }
+
+    cout << count << endl;
+    cout << count * 10 << '%' <<endl;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    if (n < 1 || n > 10) {
+        cout << "Przedzial to 1-10!!" << endl;
+        return 1;
+    }
+
+    fun(n);
+
+    return 0;
+}
+*/
+
+
