@@ -86,4 +86,25 @@ int main() {
 }
 */
 
+/*
+    Zadanie5:
 
+Code:
+*/
+
+int fun(int n) {
+    int tmp = 1;
+    for (int i = 1 ; i <= n; i++) {
+        tmp *= i;
+    }
+    return tmp;
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    cout << fun(n) << endl;
+
+    return 0;
+}
