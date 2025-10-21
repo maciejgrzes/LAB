@@ -161,11 +161,37 @@ int main() {
         cout << "Przedzial to 1-10!!" << endl;
         return 1;
     }
-
+8
     fun(n);
 
     return 0;
 }
 */
 
+/*
+    Zadanie8:
 
+Code:
+
+
+int fun1(int n) {
+    return n/2;
+}
+
+int fun2(int n) {
+    return (n-1)/2;
+}
+
+int main() {
+    
+    for (int n = 0; n <= 100; n++) {
+        if (n % 2 == 0) {
+            cout << fun1(n) << endl;
+        } else {
+            cout << fun1(n) << endl;
+        }
+    }
+
+    return 0;
+}
+*/
