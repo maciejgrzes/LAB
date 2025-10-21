@@ -5,7 +5,7 @@ using namespace std;
     Zadanie1:
 
 Code:
-*/
+
 
 void fun1(int a, int b) {
     if (a < b) {
@@ -33,3 +33,30 @@ int main() {
         
     return 0;
 }
+*/
+
+/*
+    Zadanie2:
+
+Code:
+
+
+void fun(int n) {
+    for (int i = 1; i <= n/2; i++) {
+        if (n % i == 0) {
+            cout << i << endl;
+        }
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    fun(n);
+
+    return 0;
+}
+*/
+
+
