@@ -1,8 +1,9 @@
 #include <iostream>
 #include <limits>
+#include "header.h"
 using namespace std;
 
-
+/*
 // Check if the inputed temperature is not below absolute 0
 bool check(double temp, char unit) {
     if (temp < 0 && unit == 'K') {
@@ -89,7 +90,7 @@ bool outOfRange(double temp) {
     }
     return false;
 }
-
+*/
 
 // Wait for the user to press Enter before continuing
 void pressEnter() {
@@ -102,8 +103,11 @@ void pressEnter() {
     cin.get();
 }
 
-
 int main() {
+    double memory[100] = {0};
+    int dataCounter = 0;
+
+
     while(true) {
         // Universal 'command' to clear the terminal since different operating systems use different commands
         // to clear the screen this ensures this program works on most* modern terminals
