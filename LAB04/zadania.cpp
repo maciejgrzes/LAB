@@ -59,4 +59,31 @@ int main() {
 }
 */
 
+//Zadanie 3 jest w pliku LAB/LAB03/kalkulator.cpp 
+
+/*
+    Zadanie4:
+
+Code:
+
+
+int fun(int a, int b) {
+    int tmp = 1;
+    for (int i = 0; i < b; i++) {
+        tmp *= a;
+    }
+    return tmp;
+}
+
+int main() {
+    int a, b;
+    cin >> a;
+    cin >> b;
+
+    cout << fun(a, b) << endl;
+
+    return 0;
+}
+*/
+
 
