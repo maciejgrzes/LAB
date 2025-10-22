@@ -77,7 +77,8 @@ void showMenu() {
     cout << "4 - przelicz Celsius -> Kelwin" << endl;
     cout << "5 - przelicz Kelwin -> Celsius" << endl;
     cout << "6 - przelicz Kelwin -> Fahr" << endl;
-    cout << "7 - zakończ działanie programu" << endl;
+    cout << "7 - pokaż historie" << endl;
+    cout << "8 - zakończ działanie programu" << endl;
     cout << "Wybierz opcje: ";
 }
 
@@ -98,4 +99,10 @@ void pressEnter() {
 
     cout << "Naciśnij Enter aby kontynuować...";
     cin.get();
+}
+
+void printVector(vector<string> data) {
+    for (int i = 0; i < data.size(); i += 2) {
+        cout << data[i] << " -> " << data[i+1] << endl;
+    }
 }

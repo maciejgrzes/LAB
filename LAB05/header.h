@@ -1,5 +1,7 @@
 #include <iostream>
 #include <limits>
+#include <vector>
+#include <string>
 #ifndef HEADER_INCLUDE
 
 #define HEADER_INCLUDE
@@ -29,5 +31,7 @@ void showMenu();
 bool outOfRange(double temp);
 
 void pressEnter();
+
+void printVector(std::vector<std::string> data);
 
 #endif
