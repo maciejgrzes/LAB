@@ -62,18 +62,57 @@ int main() {
 Code:
 */
 
+int min(int table[]) {
+    int tmp = table[0];
+
+    for (int i = 1; i < 10; i++) {
+        if (tmp > table[i]) tmp = table[i];
+    }
+    return tmp;
+}
+
+int max(int table[]) {
+    int tmp = table[0];
+
+    for (int i = 1; i < 10; i++) {
+        if (tmp < table[i]) tmp = table[i];
+    }
+    return tmp;
+}
+
 int main() {
     srand(static_cast<unsigned>(time(nullptr)));
 
     int table[10];
 
     for (int i = 0; i < 10; i++) {
-        table[i] = rand();
+        table[i] = rand() % 100 + 1;
     }
 
+    double avg = 0;
+
     for (int num : table) {
-        cout << num << endl;
+        avg += num;
     }
+    avg /= 10;
+
+    int lessCount = 0;
+    int moreCount = 0;
+
+    for (int num : table) {
+        if (num < avg) {
+            lessCount++;
+        } else {
+            moreCount++;
+        }
+    }
+
+
+    cout << "Lowest value: " << min(table) << endl;
+    cout << "Highest value: " << max(table) << endl;
+    cout << "Average: " << avg << endl;
+    cout << "Less than average: " << lessCount << endl;
+    cout << "More than average: " << moreCount << endl;
 
     return 0;
 }
