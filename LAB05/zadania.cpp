@@ -60,7 +60,7 @@ int main() {
     Zadanie3:
 
 Code:
-*/
+
 
 int min(int table[]) {
     int tmp = table[0];
@@ -116,3 +116,4 @@ int main() {
 
     return 0;
 }
+*/
