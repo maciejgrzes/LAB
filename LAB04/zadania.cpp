@@ -1,3 +1,5 @@
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
 using namespace std;
 
@@ -141,6 +143,8 @@ Code:
 
 
 void fun(int n) {
+    srand(static_cast<unsigned>(time(nullptr)));
+
     int tmp;
     int count = 0;
     for (int i = 1; i <= 10; i++) {

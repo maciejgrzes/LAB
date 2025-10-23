@@ -1,3 +1,5 @@
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
 using namespace std;
 
@@ -28,7 +30,7 @@ int main() {
     Zadanie2:
 
 Code:
-*/
+
 
 void fibonacci(int fib[],int size) {
     for (int i = 2; i <= size; i++) {
@@ -47,6 +49,29 @@ int main() {
     fibonacci(fib, size);
 
     for (int num : fib) {
+        cout << num << endl;
+    }
+
+    return 0;
+}
+*/
+
+/*
+    Zadanie3:
+
+Code:
+*/
+
+int main() {
+    srand(static_cast<unsigned>(time(nullptr)));
+
+    int table[10];
+
+    for (int i = 0; i < 10; i++) {
+        table[i] = rand();
+    }
+
+    for (int num : table) {
         cout << num << endl;
     }
 

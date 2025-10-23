@@ -1,3 +1,4 @@
+#include <ctime>
 #include <cstdlib>
 #include <iostream>
 using namespace std;
@@ -402,6 +403,8 @@ int main() {
 Code:
 
 int main() {
+    srand(static_cast<unsigned>(time(nullptr)));
+
     int n, m;
     cin >> n;
     cin >> m;
@@ -419,6 +422,8 @@ int main() {
 Code:
 
 int main() {
+    srand(static_cast<unsigned>(time(nullptr)));
+
     int l;
     cout << "Podaj liczbe w przedziale 1-10: " << endl;
     cin >> l;
