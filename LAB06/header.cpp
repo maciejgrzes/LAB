@@ -102,6 +102,9 @@ void pressEnter() {
 }
 
 void printVector(vector<string> data) {
+    if (data.empty()) {
+        cout << "Nie ma historii!" << endl;
+    }
     for (int i = 0; i < data.size(); i++) {
         cout << i+1 << ": " << data[i] << endl;
     }
@@ -111,5 +114,6 @@ void showHistoryMenu() {
     cout << "1. Tylko C - > inne" << endl;
     cout << "2. Tylko F - > inne" << endl;
     cout << "3. Tylko K - > inne" << endl;
+    cout << "4. Cała historia" << endl;
     cout << "Wybierz opcje: ";
 }

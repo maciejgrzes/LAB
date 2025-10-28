@@ -6,7 +6,10 @@ using namespace std;
 
 
 int main() {
-    vector<string> data;
+    vector<string> history;
+    vector<string> historyC;
+    vector<string> historyF;
+    vector<string> historyK;
     double tempAfter;
     int option;
     double temp;
@@ -38,7 +41,8 @@ int main() {
 
                 tempAfter = FtoC(temp);
 
-                data.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "°C");
+                history.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "°C");
+                historyF.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "°C");
                 
                 cout << temp << "°F -> " << tempAfter << "°C" << endl;
                 
@@ -58,7 +62,8 @@ int main() {
 
                 tempAfter = FtoK(temp);
 
-                data.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "K");
+                history.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "K");
+                historyF.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "K");
                 
                 cout << temp << "°F -> " << tempAfter << "K" << endl;
 
@@ -77,7 +82,8 @@ int main() {
                 
                 tempAfter = CtoF(temp);
 
-                data.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "°F");
+                history.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "°F");
+                historyC.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "°F");
                 
                 cout << temp << "°C -> " << tempAfter << "°F" << endl;
 
@@ -96,7 +102,8 @@ int main() {
                 
                 tempAfter = CtoK(temp);
 
-                data.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "K");
+                history.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "K");
+                historyC.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "K");
                 
                 cout << temp << "°C -> " << tempAfter << "K" << endl;
 
@@ -115,7 +122,8 @@ int main() {
                 
                 tempAfter = KtoC(temp);
 
-                data.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°C");
+                history.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°C");
+                historyK.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°C");
                 
                 cout << temp << "K -> " << tempAfter << "°C" << endl;
                 
@@ -134,7 +142,8 @@ int main() {
                 
                 tempAfter = KtoF(temp);
 
-                data.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°F");
+                history.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°F");
+                historyK.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°F");
                 
                 cout << temp << "K -> " << tempAfter << "°F" << endl;
                 
@@ -145,10 +154,39 @@ int main() {
             // Printing conversion history
             case 7:
                 cout << "\033[2J\033[1;1H";
-                printVector(data);
                 
-                pressEnter();
+                showHistoryMenu();
+
+                int historyOption;
+                cin >> historyOption;
+    
+                switch (historyOption) {
+                    case 1:
+                        printVector(historyC);
+                        pressEnter();
+                        break;
+                    
+                    case 2:
+                        printVector(historyF);
+                        pressEnter();
+                        break;
+                    
+                    case 3:
+                        printVector(historyK);
+                        pressEnter();
+                        break;
+                    
+                    case 4:
+                        printVector(history);
+                        pressEnter();
+                        break;
+
+                    default:
+                        break;
+                }
                 break;
+            //case 8:
+                // TODO: implement clearing history
         }
     }
 
