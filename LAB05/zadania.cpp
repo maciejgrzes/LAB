@@ -117,3 +117,35 @@ int main() {
     return 0;
 }
 */
+
+
+/*
+    Zadanie4:
+
+Code:
+
+
+int main() {
+    int w, h;
+    cin >> w;
+    cin >> h;
+    
+    int table[h][w];
+
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < w; j++) {
+            cin >> table[i][j];
+        }
+    }
+
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < w; j++) {
+            cout << table[i][j] << " ";
+        if (j == w-1)
+            cout << endl;
+        }
+    }
+
+    return 0;
+}
+*/
