@@ -8,20 +8,17 @@ using namespace std;
 int main() {
     vector<string> data;
     double tempAfter;
+    int option;
+    double temp;
     
     while(true) {
         // Universal 'command' to clear the terminal since different operating systems use different commands
         // to clear the screen this ensures this program works on most* modern terminals
         cout << "\033[2J\033[1;1H";
         
-
         // Show the menu and get input from user
         showMenu();
-
-        int option;
         cin >> option;
-
-        double temp;
 
         if (option < 1 || option > 7) {
             return 0;
@@ -41,8 +38,7 @@ int main() {
 
                 tempAfter = FtoC(temp);
 
-                data.push_back(to_string(temp) + "°F");
-                data.push_back(to_string(tempAfter) + "°C");
+                data.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "°C");
                 
                 cout << temp << "°F -> " << tempAfter << "°C" << endl;
                 
@@ -62,9 +58,7 @@ int main() {
 
                 tempAfter = FtoK(temp);
 
-                data.push_back(to_string(temp) + "°F");
-                data.push_back(to_string(tempAfter) + "K");
-
+                data.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "K");
                 
                 cout << temp << "°F -> " << tempAfter << "K" << endl;
 
@@ -83,8 +77,7 @@ int main() {
                 
                 tempAfter = CtoF(temp);
 
-                data.push_back(to_string(temp) + "°C");
-                data.push_back(to_string(tempAfter) + "°F");
+                data.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "°F");
                 
                 cout << temp << "°C -> " << tempAfter << "°F" << endl;
 
@@ -103,8 +96,7 @@ int main() {
                 
                 tempAfter = CtoK(temp);
 
-                data.push_back(to_string(temp) + "°C");
-                data.push_back(to_string(tempAfter) + "K");
+                data.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "K");
                 
                 cout << temp << "°C -> " << tempAfter << "K" << endl;
 
@@ -123,8 +115,7 @@ int main() {
                 
                 tempAfter = KtoC(temp);
 
-                data.push_back(to_string(temp) + "K");
-                data.push_back(to_string(tempAfter) + "°C");
+                data.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°C");
                 
                 cout << temp << "K -> " << tempAfter << "°C" << endl;
                 
@@ -143,8 +134,7 @@ int main() {
                 
                 tempAfter = KtoF(temp);
 
-                data.push_back(to_string(temp) + "K");
-                data.push_back(to_string(tempAfter) + "°F");
+                data.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°F");
                 
                 cout << temp << "K -> " << tempAfter << "°F" << endl;
                 
@@ -154,6 +144,7 @@ int main() {
             
             // Printing conversion history
             case 7:
+                cout << "\033[2J\033[1;1H";
                 printVector(data);
                 
                 pressEnter();

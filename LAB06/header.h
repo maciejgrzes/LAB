@@ -1,5 +1,4 @@
 #include <iostream>
-#include <limits>
 #include <vector>
 #include <string>
 #ifndef HEADER_INCLUDE
@@ -33,5 +32,7 @@ bool outOfRange(double temp);
 void pressEnter();
 
 void printVector(std::vector<std::string> data);
+
+void showHistoryMenu();
 
 #endif

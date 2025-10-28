@@ -102,7 +102,14 @@ void pressEnter() {
 }
 
 void printVector(vector<string> data) {
-    for (int i = 0; i < data.size(); i += 2) {
-        cout << data[i] << " -> " << data[i+1] << endl;
+    for (int i = 0; i < data.size(); i++) {
+        cout << i+1 << ": " << data[i] << endl;
     }
+}
+
+void showHistoryMenu() {
+    cout << "1. Tylko C - > inne" << endl;
+    cout << "2. Tylko F - > inne" << endl;
+    cout << "3. Tylko K - > inne" << endl;
+    cout << "Wybierz opcje: ";
 }
