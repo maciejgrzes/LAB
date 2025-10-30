@@ -130,6 +130,7 @@ void showHistoryEditMenu() {
     cout << "Wybierz opcje: ";
 }
 
+// Safety checking for the correct scale
 char inputScale() {
     cout << "Podaj skale: ";
     char scale;
@@ -164,6 +165,7 @@ char inputScaleToCalculate(char scale) {
     return secondScale;
 }
 
+// Prosedure to replace a history entry with user input
 void calculateAndReplace(vector<string>& vec) {
     cout << "Który index zmienić? ";
     int indexToEdit;
@@ -240,6 +242,7 @@ void calculateAndReplace(vector<string>& vec) {
     }
 }
 
+// Generating random numbers to put into history
 void generateRandomHistory(vector<string>& history, vector<string>& historyC, vector<string>& historyF, vector<string>& historyK) {
     random_device rd;
     mt19937 gen(rd());

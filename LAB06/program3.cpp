@@ -17,10 +17,9 @@ int main() {
     
     while(true) {
         // Universal 'command' to clear the terminal since different operating systems use different commands
-        // to clear the screen this ensures this program works on most* modern terminals
+        // to clear the screen, this ensures this program works on most* modern terminals
         cout << "\033[2J\033[1;1H";
         
-        // Show the menu and get input from user
         showMenu();
         cin >> option;
 
@@ -185,26 +184,31 @@ int main() {
                 cin >> historyOption;
     
                 switch (historyOption) {
+                    // Print only C -> something
                     case 1:
                         printVector(historyC);
                         pressEnter();
                         break;
                     
+                    // Print only F -> something
                     case 2:
                         printVector(historyF);
                         pressEnter();
                         break;
                     
+                    // Print only K -> something
                     case 3:
                         printVector(historyK);
                         pressEnter();
                         break;
                     
+                    // Print everything
                     case 4:
                         printVector(history);
                         pressEnter();
                         break;
-
+                    
+                    // Edit the history
                     case 5:
                         cout << "\033[2J\033[1;1H";
 
@@ -215,6 +219,7 @@ int main() {
                         cin >> editOption;
 
                         switch (editOption) {
+                            // Clear the entire history
                             case 1:
                                 history.clear();
                                 historyC.clear();
@@ -222,7 +227,8 @@ int main() {
                                 historyK.clear();
 
                                 break;
-
+                            
+                            // Clear specified intex
                             case 2: {
                                 cout << "Który index usunąć? ";
 
@@ -243,12 +249,13 @@ int main() {
                                 
                                 break;
                             }
-
+                            
+                            // Edit a specified index
                             case 3:
                                 calculateAndReplace(history);
 
                                 break;
-
+                            // Randomly fill the history
                             case 4:
                                 generateRandomHistory(history, historyC, historyF, historyK);
 
