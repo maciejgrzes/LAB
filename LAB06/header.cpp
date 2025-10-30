@@ -22,39 +22,71 @@ bool check(double temp, char unit) {
 // Helper input functions
 double inputC() {
     double C;
-    cout << "Podaj temperature do przeliczenia: ";
-    cin >> C;
 
-    if (check(C, 'C')) {
-        return -999.0;
+    while (true) {
+        cout << "Podaj temperature do przeliczenia: ";
+        cin >> C;
+
+        if (cin.fail()) {
+            cin.clear();
+
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            cout << "Wpisz liczbe!! ";
+        } else {
+            if (check(C, 'C')) {
+                return -999;
+            } else {
+                return C;
+            }
+        }
     }
-
-    return C;
 }
 
 double inputF() {
     double F;
-    cout << "Podaj temperature do przeliczenia: ";
-    cin >> F;
-    
-    if (check(F, 'F')) {
-        return -999;
-    }
 
-    return F;
+    while (true) {
+        cout << "Podaj temperature do przeliczenia: ";
+        cin >> F;
+
+        if (cin.fail()) {
+            cin.clear();
+
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            cout << "Wpisz liczbe!! ";
+        } else {
+            if (check(F, 'F')) {
+                return -999;
+            } else {
+                return F;
+            }
+        }
+    }
 }
 
 double inputK() {
     double K;
-    cout << "Podaj temperature do przeliczenia: ";
-    cin >> K;
 
-    if (check(K, 'K')) {
-        return -999;
-    }
+    while (true) {
+        cout << "Podaj temperature do przeliczenia: ";
+        cin >> K;
 
-    return K;
-}
+        if (cin.fail()) {
+            cin.clear();
+
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            cout << "Wpisz liczbe!! ";
+        } else {
+            if (check(K, 'K')) {
+                return -999;
+            } else {
+                return K;
+            }
+        }
+    }}
 
 
 // Main conversion functions
