@@ -24,7 +24,7 @@ double inputC() {
     cin >> C;
 
     if (check(C, 'C')) {
-        return 0;
+        return -999.0;
     }
 
     return C;
@@ -36,7 +36,7 @@ double inputF() {
     cin >> F;
     
     if (check(F, 'F')) {
-        return 0;
+        return -999;
     }
 
     return F;
@@ -48,7 +48,7 @@ double inputK() {
     cin >> K;
 
     if (check(K, 'K')) {
-        return 0;
+        return -999;
     }
 
     return K;
@@ -84,7 +84,7 @@ void showMenu() {
 
 // Out of range prosedure
 bool outOfRange(double temp) {
-    if (temp == 0) {
+    if (temp == -999.0) {
         cout << "Nie ma takiej temperatury" << endl;
         return true;
     }
@@ -126,4 +126,114 @@ void showHistoryEditMenu() {
     cout << "4 - Wypełnij historie losowymi numerami" << endl;
     cout << "5 - Zakończ" << endl;
     cout << "Wybierz opcje: ";
+}
+
+char inputScale() {
+    cout << "Podaj skale: ";
+    char scale;
+    cin >> scale;
+
+    while (scale != 'C' && scale != 'F' && scale != 'K' && scale != 'c' && scale != 'f' && scale != 'k') {
+        cout << "Podaj C lub F lub K!" << endl;
+        cout << "Spróbuj jeszcze raz: ";
+        cin >> scale;
+    }
+
+    if (scale == 'c') return 'C';
+    if (scale == 'f') return 'F';
+    if (scale == 'k') return 'K';
+    return scale;
+}
+
+char inputScaleToCalculate(char scale) {
+    cout << "Skala do przeliczenia: ";
+    char secondScale;
+    cin >> secondScale;
+
+    while (scale == secondScale) {
+        cout << "Skale nie mogą być takie same smh!" << endl;
+        cout << "Spróbuj jeszcze raz: ";
+        cin >> secondScale;
+    }
+
+    if (secondScale == 'c') return 'C';
+    if (secondScale == 'f') return 'F';
+    if (secondScale == 'k') return 'K';
+    return secondScale;
+}
+
+void calculateAndReplace(vector<string>& vec) {
+    cout << "Który index zmienić? ";
+    int indexToEdit;
+    cin >> indexToEdit;
+
+    char scale = inputScale();
+ 
+    double newTemp;
+    double newTempAfter;
+
+    if (scale == 'C') {
+        newTemp = inputC();
+
+        if (outOfRange(newTemp)) {
+            pressEnter();
+            return;
+        }
+
+        char newScale = inputScaleToCalculate(scale);
+
+        if (newScale == 'F') {
+            newTempAfter = CtoF(newTemp);
+            cout << newTemp << "°C -> " << newTempAfter << "°F" << endl;
+            vec[indexToEdit-1] = to_string(newTemp) + "°C -> " + to_string(newTempAfter) + "°F";
+
+        } else if (newScale == 'K') {
+            newTempAfter = CtoK(newTemp);
+            cout << newTemp << "°C -> " << newTempAfter << "K" << endl;
+            vec[indexToEdit-1] = to_string(newTemp) + "°C -> " + to_string(newTempAfter) + "K";
+        }
+
+    } else if (scale == 'F') {
+        newTemp = inputF();
+
+        if (outOfRange(newTemp)) {
+            pressEnter();
+            return;
+        }
+
+        char newScale = inputScaleToCalculate(scale);
+
+        if (newScale == 'C') {
+            newTempAfter = FtoC(newTemp);
+            cout << newTemp << "°F -> " << newTempAfter << "°C" << endl;
+            vec[indexToEdit-1] = to_string(newTemp) + "°F -> " + to_string(newTempAfter) + "°C";
+
+        } else if (newScale == 'K') {
+            newTempAfter = FtoK(newTemp);
+            cout << newTemp << "°F -> " << newTempAfter << "K" << endl;
+            vec[indexToEdit-1] = to_string(newTemp) + "°F -> " + to_string(newTempAfter) + "K";
+        }
+
+    } else if (scale == 'K') {
+        newTemp = inputK();
+
+        if (outOfRange(newTemp)) {
+            pressEnter();
+            return;
+        }
+
+        char newScale = inputScaleToCalculate(scale);
+
+        if (newScale == 'F') {
+            newTempAfter = CtoF(newTemp);
+            cout << newTemp << "K -> " << newTempAfter << "°F" << endl;
+            vec[indexToEdit-1] = to_string(newTemp) + "K -> " + to_string(newTempAfter) + "°F";
+
+        } else if (newScale == 'C') {
+            newTempAfter = CtoK(newTemp);
+            cout << newTemp << "K -> " << newTempAfter << "°C" << endl;
+            vec[indexToEdit-1] = to_string(newTemp) + "K -> " + to_string(newTempAfter) + "°C";
+        }
+
+    }
 }

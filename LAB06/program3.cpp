@@ -1,6 +1,5 @@
 #include <algorithm>
 #include <iostream>
-#include <iterator>
 #include <vector>
 #include <string>
 #include <ctime>
@@ -249,94 +248,10 @@ int main() {
                                 break;
                             }
 
-                            case 3: {
-                                cout << "Który index zmienić? ";
-
-                                int indexToEdit;
-                                cin >> indexToEdit;
-                                
-                                cout << "Podaj nową skale: ";
-
-                                char scale;
-                                cin >> scale;
-                                
-                                double newTemp;
-                                double newTempAfter;
-                                char newScale;
-
-                                if (scale == 'C') {
-                                    newTemp = inputC();
-
-                                    if (outOfRange(newTemp)) {
-                                        pressEnter();
-                                        break;
-                                    }
-
-                                    cout << "Skala do przeliczenia: ";
-                                    cin >> newScale;
-
-                                    if (newScale == 'F') {
-                                        newTempAfter = CtoF(newTemp);
-                                        cout << newTemp << "°C -> " << newTempAfter << "°F" << endl;
-                                        history[indexToEdit-1] = to_string(newTemp) + "°C -> " + to_string(newTempAfter) + "°F";
-
-                                    } else if (newScale == 'K') {
-                                        newTempAfter = CtoK(newTemp);
-                                        cout << newTemp << "°C -> " << newTempAfter << "K" << endl;
-                                        history[indexToEdit-1] = to_string(newTemp) + "°C -> " + to_string(newTempAfter) + "K";
-
-                                    }
-                                } else if (scale == 'F') {
-                                    newTemp = inputF();
-
-                                    if (outOfRange(newTemp)) {
-                                        pressEnter();
-                                        break;
-                                    }
-
-                                    cout << "Skala do przeliczenia: ";
-                                    cin >> newScale;
-
-                                    if (newScale == 'C') {
-                                        newTempAfter = FtoC(newTemp);
-                                        cout << newTemp << "°F -> " << newTempAfter << "°C" << endl;
-                                        history[indexToEdit-1] = to_string(newTemp) + "°F -> " + to_string(newTempAfter) + "°C";
-
-                                    } else if (newScale == 'K') {
-                                        newTempAfter = FtoK(newTemp);
-                                        cout << newTemp << "°F -> " << newTempAfter << "K" << endl;
-                                        history[indexToEdit-1] = to_string(newTemp) + "°F -> " + to_string(newTempAfter) + "K";
-
-                                    }
-                                } else if (scale == 'K') {
-                                    newTemp = inputK();
-
-                                    if (outOfRange(newTemp)) {
-                                        pressEnter();
-                                        break;
-                                    }
-
-                                    cout << "Skala do przeliczenia: ";
-                                    cin >> newScale;
-
-                                    if (newScale == 'F') {
-                                        newTempAfter = CtoF(newTemp);
-                                        cout << newTemp << "K -> " << newTempAfter << "°F" << endl;
-                                        history[indexToEdit-1] = to_string(newTemp) + "K -> " + to_string(newTempAfter) + "°F";
-
-                                    } else if (newScale == 'C') {
-                                        newTempAfter = CtoK(newTemp);
-                                        cout << newTemp << "K -> " << newTempAfter << "°C" << endl;
-                                        history[indexToEdit-1] = to_string(newTemp) + "K -> " + to_string(newTempAfter) + "°C";
-
-                                    }
-
-                                } 
-
-
+                            case 3:
+                                calculateAndReplace(history);
 
                                 break;
-                            }
 
                             default:
                                 break;

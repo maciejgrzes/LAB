@@ -7,9 +7,10 @@
 
 bool check(double temp, char unit);
 
-
 double inputC();
+
 double inputF();
+
 double inputK();
 
 double FtoC (double F);
@@ -24,7 +25,6 @@ double KtoC (double K);
 
 double KtoF (double K);
 
-
 void showMenu();
 
 bool outOfRange(double temp);
@@ -36,5 +36,11 @@ void printVector(std::vector<std::string> data);
 void showHistoryMenu();
 
 void showHistoryEditMenu();
+
+char inputScale();
+
+char inputScaleToCalculate();
+
+void calculateAndReplace(std::vector<std::string>& vec);
 
 #endif
