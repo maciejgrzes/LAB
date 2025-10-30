@@ -122,6 +122,8 @@ void showHistoryMenu() {
 void showHistoryEditMenu() {
     cout << "1 - Wyczyść całą historie" << endl;
     cout << "2 - Wybierz element do usunięcia" << endl;
-    cout << "3 - Zakończ" << endl;
+    cout << "3 - Edytuj wpis" << endl;
+    cout << "4 - Wypełnij historie losowymi numerami" << endl;
+    cout << "5 - Zakończ" << endl;
     cout << "Wybierz opcje: ";
 }

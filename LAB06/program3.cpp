@@ -48,8 +48,8 @@ int main() {
                 tempAfter = FtoC(temp);
 
                 if (history.size() < 100) {
-                    history.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "°C");
-                    historyF.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "°C");
+                    history.push_back(to_string(temp) + "°F -> " + to_string(tempAfter) + "°C");
+                    historyF.push_back(to_string(temp) + "°F -> " + to_string(tempAfter) + "°C");
                 } else {
                     cout << "Brak miejsca do zapisania w historii!" << endl;
                 }
@@ -72,8 +72,8 @@ int main() {
                 tempAfter = FtoK(temp);
                 
                 if (history.size() < 100) {
-                    history.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "K");
-                    historyF.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "K");
+                    history.push_back(to_string(temp) + "°F -> " + to_string(tempAfter) + "K");
+                    historyF.push_back(to_string(temp) + "°F -> " + to_string(tempAfter) + "K");
                 } else {
                     cout << "Brak miejsca do zapisania w historii!" << endl;
                 }
@@ -96,8 +96,8 @@ int main() {
                 tempAfter = CtoF(temp);
 
                 if (history.size() < 100) {
-                    history.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "°F");
-                    historyC.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "°F");
+                    history.push_back(to_string(temp) + "°C -> " + to_string(tempAfter) + "°F");
+                    historyC.push_back(to_string(temp) + "°C -> " + to_string(tempAfter) + "°F");
                 } else {
                     cout << "Brak miejsca do zapisania w historii!" << endl;
                 }
@@ -120,8 +120,8 @@ int main() {
                 tempAfter = CtoK(temp);
 
                 if (history.size() < 100) {
-                    history.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "K");
-                    historyC.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "K");
+                    history.push_back(to_string(temp) + "°C -> " + to_string(tempAfter) + "K");
+                    historyC.push_back(to_string(temp) + "°C -> " + to_string(tempAfter) + "K");
                 } else {
                     cout << "Brak miejsca do zapisania w historii!" << endl;
                 }
@@ -144,8 +144,8 @@ int main() {
                 tempAfter = KtoC(temp);
 
                 if (history.size() < 100) {
-                    history.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°C");
-                    historyK.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°C");
+                    history.push_back(to_string(temp) + "K -> " + to_string(tempAfter) + "°C");
+                    historyK.push_back(to_string(temp) + "K -> " + to_string(tempAfter) + "°C");
                 } else {
                     cout << "Brak miejsca do zapisania w historii!" << endl;
                 }
@@ -168,8 +168,8 @@ int main() {
                 tempAfter = KtoF(temp);
 
                 if (history.size() < 100) {
-                    history.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°F");
-                    historyK.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°F");
+                    history.push_back(to_string(temp) + "K -> " + to_string(tempAfter) + "°F");
+                    historyK.push_back(to_string(temp) + "K -> " + to_string(tempAfter) + "°F");
                 } else {
                     cout << "Brak miejsca do zapisania w historii!" << endl;
                 }
@@ -229,6 +229,8 @@ int main() {
                                 break;
 
                             case 2: {
+                                cout << "Który index usunąć? ";
+
                                 int indexToRemove;
                                 cin >> indexToRemove;
                                 
@@ -242,10 +244,100 @@ int main() {
                                 if (inF != historyF.end()) historyF.erase(inF);
                                 if (inK != historyK.end()) historyK.erase(inK);
 
-                                history.erase(history.begin() + (indexToRemove - 1));
+                                history.erase(history.begin() + (indexToRemove--));
                                 
                                 break;
                             }
+
+                            case 3: {
+                                cout << "Który index zmienić? ";
+
+                                int indexToEdit;
+                                cin >> indexToEdit;
+                                
+                                cout << "Podaj nową skale: ";
+
+                                char scale;
+                                cin >> scale;
+                                
+                                double newTemp;
+                                double newTempAfter;
+                                char newScale;
+
+                                if (scale == 'C') {
+                                    newTemp = inputC();
+
+                                    if (outOfRange(newTemp)) {
+                                        pressEnter();
+                                        break;
+                                    }
+
+                                    cout << "Skala do przeliczenia: ";
+                                    cin >> newScale;
+
+                                    if (newScale == 'F') {
+                                        newTempAfter = CtoF(newTemp);
+                                        cout << newTemp << "°C -> " << newTempAfter << "°F" << endl;
+                                        history[indexToEdit-1] = to_string(newTemp) + "°C -> " + to_string(newTempAfter) + "°F";
+
+                                    } else if (newScale == 'K') {
+                                        newTempAfter = CtoK(newTemp);
+                                        cout << newTemp << "°C -> " << newTempAfter << "K" << endl;
+                                        history[indexToEdit-1] = to_string(newTemp) + "°C -> " + to_string(newTempAfter) + "K";
+
+                                    }
+                                } else if (scale == 'F') {
+                                    newTemp = inputF();
+
+                                    if (outOfRange(newTemp)) {
+                                        pressEnter();
+                                        break;
+                                    }
+
+                                    cout << "Skala do przeliczenia: ";
+                                    cin >> newScale;
+
+                                    if (newScale == 'C') {
+                                        newTempAfter = FtoC(newTemp);
+                                        cout << newTemp << "°F -> " << newTempAfter << "°C" << endl;
+                                        history[indexToEdit-1] = to_string(newTemp) + "°F -> " + to_string(newTempAfter) + "°C";
+
+                                    } else if (newScale == 'K') {
+                                        newTempAfter = FtoK(newTemp);
+                                        cout << newTemp << "°F -> " << newTempAfter << "K" << endl;
+                                        history[indexToEdit-1] = to_string(newTemp) + "°F -> " + to_string(newTempAfter) + "K";
+
+                                    }
+                                } else if (scale == 'K') {
+                                    newTemp = inputK();
+
+                                    if (outOfRange(newTemp)) {
+                                        pressEnter();
+                                        break;
+                                    }
+
+                                    cout << "Skala do przeliczenia: ";
+                                    cin >> newScale;
+
+                                    if (newScale == 'F') {
+                                        newTempAfter = CtoF(newTemp);
+                                        cout << newTemp << "K -> " << newTempAfter << "°F" << endl;
+                                        history[indexToEdit-1] = to_string(newTemp) + "K -> " + to_string(newTempAfter) + "°F";
+
+                                    } else if (newScale == 'C') {
+                                        newTempAfter = CtoK(newTemp);
+                                        cout << newTemp << "K -> " << newTempAfter << "°C" << endl;
+                                        history[indexToEdit-1] = to_string(newTemp) + "K -> " + to_string(newTempAfter) + "°C";
+
+                                    }
+
+                                } 
+
+
+
+                                break;
+                            }
+
                             default:
                                 break;
                         }
