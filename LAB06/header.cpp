@@ -111,9 +111,17 @@ void printVector(vector<string> data) {
 }
 
 void showHistoryMenu() {
-    cout << "1. Tylko C - > inne" << endl;
-    cout << "2. Tylko F - > inne" << endl;
-    cout << "3. Tylko K - > inne" << endl;
-    cout << "4. Cała historia" << endl;
+    cout << "1 - Tylko C - > inne" << endl;
+    cout << "2 - Tylko F - > inne" << endl;
+    cout << "3 - Tylko K - > inne" << endl;
+    cout << "4 - Cała historia" << endl;
+    cout << "5 - Edytuj historie" << endl;
+    cout << "Wybierz opcje: ";
+}
+
+void showHistoryEditMenu() {
+    cout << "1 - Wyczyść całą historie" << endl;
+    cout << "2 - Wybierz element do usunięcia" << endl;
+    cout << "3 - Zakończ" << endl;
     cout << "Wybierz opcje: ";
 }

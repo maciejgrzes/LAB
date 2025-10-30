@@ -35,4 +35,6 @@ void printVector(std::vector<std::string> data);
 
 void showHistoryMenu();
 
+void showHistoryEditMenu();
+
 #endif

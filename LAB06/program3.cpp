@@ -1,11 +1,17 @@
+#include <algorithm>
 #include <iostream>
+#include <iterator>
 #include <vector>
 #include <string>
+#include <ctime>
+#include <cstdlib>
 #include "header.h"
 using namespace std;
 
 
 int main() {
+    srand(static_cast<unsigned>(time(nullptr)));
+
     vector<string> history;
     vector<string> historyC;
     vector<string> historyF;
@@ -204,12 +210,51 @@ int main() {
                         pressEnter();
                         break;
 
+                    case 5:
+                        cout << "\033[2J\033[1;1H";
+
+                        printVector(history);
+                        
+                        showHistoryEditMenu();
+                        int editOption;
+                        cin >> editOption;
+
+                        switch (editOption) {
+                            case 1:
+                                history.clear();
+                                historyC.clear();
+                                historyF.clear();
+                                historyK.clear();
+
+                                break;
+
+                            case 2: {
+                                int indexToRemove;
+                                cin >> indexToRemove;
+                                
+                                string target = history[indexToRemove];
+
+                                auto inC = find(historyC.begin(), historyC.end(), target);
+                                auto inF = find(historyF.begin(), historyF.end(), target);
+                                auto inK = find(historyK.begin(), historyK.end(), target);
+                                
+                                if (inC != historyC.end()) historyC.erase(inC);
+                                if (inF != historyF.end()) historyF.erase(inF);
+                                if (inK != historyK.end()) historyK.erase(inK);
+
+                                history.erase(history.begin() + (indexToRemove - 1));
+                                
+                                break;
+                            }
+                            default:
+                                break;
+                        }
+
+
                     default:
                         break;
                 }
                 break;
-            //case 8:
-                // TODO: implement clearing history
         }
     }
 
