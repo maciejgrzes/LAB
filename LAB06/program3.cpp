@@ -28,7 +28,7 @@ int main() {
         }
 
         // Converting the input and printing it out based on the selected option than waiting for the user to press Enter for the loop to continue
-        // Also checking if the inputed temperature is within range
+        // Also checking if the inputed temperature is within range i.e. not below absolute zero
         switch (option) {
             // F to C
             case 1:
@@ -41,11 +41,14 @@ int main() {
 
                 tempAfter = FtoC(temp);
 
-                history.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "°C");
-                historyF.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "°C");
+                if (history.size() < 100) {
+                    history.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "°C");
+                    historyF.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "°C");
+                } else {
+                    cout << "Brak miejsca do zapisania w historii!" << endl;
+                }
                 
                 cout << temp << "°F -> " << tempAfter << "°C" << endl;
-                
 
                 pressEnter();
 
@@ -61,10 +64,14 @@ int main() {
                 }
 
                 tempAfter = FtoK(temp);
-
-                history.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "K");
-                historyF.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "K");
                 
+                if (history.size() < 100) {
+                    history.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "K");
+                    historyF.push_back(to_string(temp) + "°F" + " -> " + to_string(tempAfter) + "K");
+                } else {
+                    cout << "Brak miejsca do zapisania w historii!" << endl;
+                }
+
                 cout << temp << "°F -> " << tempAfter << "K" << endl;
 
                 pressEnter();
@@ -82,9 +89,13 @@ int main() {
                 
                 tempAfter = CtoF(temp);
 
-                history.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "°F");
-                historyC.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "°F");
-                
+                if (history.size() < 100) {
+                    history.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "°F");
+                    historyC.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "°F");
+                } else {
+                    cout << "Brak miejsca do zapisania w historii!" << endl;
+                }
+
                 cout << temp << "°C -> " << tempAfter << "°F" << endl;
 
                 pressEnter();
@@ -102,9 +113,13 @@ int main() {
                 
                 tempAfter = CtoK(temp);
 
-                history.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "K");
-                historyC.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "K");
-                
+                if (history.size() < 100) {
+                    history.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "K");
+                    historyC.push_back(to_string(temp) + "°C" + " -> " + to_string(tempAfter) + "K");
+                } else {
+                    cout << "Brak miejsca do zapisania w historii!" << endl;
+                }
+
                 cout << temp << "°C -> " << tempAfter << "K" << endl;
 
                 pressEnter();
@@ -122,9 +137,13 @@ int main() {
                 
                 tempAfter = KtoC(temp);
 
-                history.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°C");
-                historyK.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°C");
-                
+                if (history.size() < 100) {
+                    history.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°C");
+                    historyK.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°C");
+                } else {
+                    cout << "Brak miejsca do zapisania w historii!" << endl;
+                }
+
                 cout << temp << "K -> " << tempAfter << "°C" << endl;
                 
                 pressEnter();
@@ -142,9 +161,13 @@ int main() {
                 
                 tempAfter = KtoF(temp);
 
-                history.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°F");
-                historyK.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°F");
-                
+                if (history.size() < 100) {
+                    history.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°F");
+                    historyK.push_back(to_string(temp) + "K" + " -> " + to_string(tempAfter) + "°F");
+                } else {
+                    cout << "Brak miejsca do zapisania w historii!" << endl;
+                }
+
                 cout << temp << "K -> " << tempAfter << "°F" << endl;
                 
                 pressEnter();
