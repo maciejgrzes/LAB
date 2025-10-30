@@ -1,6 +1,8 @@
 #include "header.h"
 #include <iostream>
 #include <limits>
+#include <random>
+#include <string>
 using namespace std;
 
 // Check if the inputed temperature is not below absolute 0
@@ -235,5 +237,101 @@ void calculateAndReplace(vector<string>& vec) {
             vec[indexToEdit-1] = to_string(newTemp) + "K -> " + to_string(newTempAfter) + "°C";
         }
 
+    }
+}
+
+void generateRandomHistory(vector<string>& history, vector<string>& historyC, vector<string>& historyF, vector<string>& historyK) {
+    random_device rd;
+    mt19937 gen(rd());
+
+    uniform_int_distribution<int> chars(0,2);
+    uniform_int_distribution<int> valuesK(0, 1000);
+    uniform_int_distribution<int> valuesC(-274, 727);
+    uniform_int_distribution<int> valuesF(-460, 540);
+
+    char letters[] = {'C', 'F', 'K'};
+
+    int firstLetter = chars(gen);
+    int secondLetter;
+
+    do {
+        secondLetter = chars(gen);
+    } while (secondLetter == firstLetter);
+
+    double temp = valuesC(gen);
+
+    cout << "Ile losowych liczb wpisać? ";
+    int count;
+    cin >> count;
+
+    char option;
+
+    if (count + history.size() > 100) {
+        cout << "Zamało miejsca! Chcesz wypełnić historie " << ( count + history.size() ) - 100 << " elementami? (Y/n) ";
+        cin >> option;
+
+        if (option == 'Y' || option == 'y') {
+            count = ( count + history.size() ) - 100;
+        } else {
+            return;
+        }
+    }
+
+    for (int i = 0; i < count; i++) {
+        int firstIndex = chars(gen);
+        int secondIndex;
+
+        do {
+            secondLetter = chars(gen);
+        } while (secondLetter == firstLetter);
+
+        double temp = valuesC(gen);
+
+        char firstLetter = letters[firstIndex];
+        char secondLetter = letters[secondIndex];
+
+        switch (firstLetter) {
+            case 'C': {
+                if (secondLetter == 'F') {
+                    double newTemp = CtoF(temp);
+                    history.push_back(to_string(temp) + "°C -> " + to_string(newTemp) + "°F");
+                    historyC.push_back(to_string(temp) + "°C -> " + to_string(newTemp) + "°F");
+                } else {
+                    double newTemp = CtoK(temp);
+                    history.push_back(to_string(temp) + "°C -> " + to_string(newTemp) + "K");
+                    historyC.push_back(to_string(temp) + "°C -> " + to_string(newTemp) + "K");
+                }
+
+                break; 
+            }
+            
+            case 'F': {
+                if (secondLetter == 'C') {
+                    double newTemp = FtoC(temp);
+                    history.push_back(to_string(temp) + "°F -> " + to_string(newTemp) + "°C");
+                    historyF.push_back(to_string(temp) + "°F -> " + to_string(newTemp) + "°C");
+                } else {
+                    double newTemp = FtoK(temp);
+                    history.push_back(to_string(temp) + "°F -> " + to_string(newTemp) + "K");
+                    historyF.push_back(to_string(temp) + "°F -> " + to_string(newTemp) + "K");
+                }
+
+                break; 
+            }
+
+            case 'K': {
+                if (secondLetter == 'F') {
+                    double newTemp = KtoF(temp);
+                    history.push_back(to_string(temp) + "K -> " + to_string(newTemp) + "°F");
+                    historyK.push_back(to_string(temp) + "K -> " + to_string(newTemp) + "°F");
+                } else {
+                    double newTemp = KtoC(temp);
+                    history.push_back(to_string(temp) + "K -> " + to_string(newTemp) + "°C");
+                    historyK.push_back(to_string(temp) + "K -> " + to_string(newTemp) + "°C");
+                }
+
+                break; 
+            }      
+        }
     }
 }

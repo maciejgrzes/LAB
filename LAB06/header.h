@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+using namespace std;
 #ifndef HEADER_INCLUDE
 
 #define HEADER_INCLUDE
@@ -31,7 +32,7 @@ bool outOfRange(double temp);
 
 void pressEnter();
 
-void printVector(std::vector<std::string> data);
+void printVector(vector<string> data);
 
 void showHistoryMenu();
 
@@ -41,6 +42,8 @@ char inputScale();
 
 char inputScaleToCalculate();
 
-void calculateAndReplace(std::vector<std::string>& vec);
+void calculateAndReplace(vector<string>& vec);
+
+void generateRandomHistory(vector<string>& history, vector<string>& historyC, vector<string>& historyF, vector<string>& historyK);
 
 #endif

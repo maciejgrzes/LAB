@@ -2,15 +2,11 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <ctime>
-#include <cstdlib>
 #include "header.h"
 using namespace std;
 
 
 int main() {
-    srand(static_cast<unsigned>(time(nullptr)));
-
     vector<string> history;
     vector<string> historyC;
     vector<string> historyF;
@@ -250,6 +246,11 @@ int main() {
 
                             case 3:
                                 calculateAndReplace(history);
+
+                                break;
+
+                            case 4:
+                                generateRandomHistory(history, historyC, historyF, historyK);
 
                                 break;
 
