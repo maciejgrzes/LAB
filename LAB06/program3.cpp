@@ -235,7 +235,7 @@ int main() {
                                 int indexToRemove;
                                 cin >> indexToRemove;
                                 
-                                string target = history[indexToRemove];
+                                string target = history[indexToRemove--];
 
                                 auto inC = find(historyC.begin(), historyC.end(), target);
                                 auto inF = find(historyF.begin(), historyF.end(), target);
@@ -245,7 +245,7 @@ int main() {
                                 if (inF != historyF.end()) historyF.erase(inF);
                                 if (inK != historyK.end()) historyK.erase(inK);
 
-                                history.erase(history.begin() + (indexToRemove--));
+                                history.erase(history.begin() + (indexToRemove));
                                 
                                 break;
                             }
