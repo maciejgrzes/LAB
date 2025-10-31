@@ -199,9 +199,12 @@ char inputScaleToCalculate(char scale) {
 
 // Prosedure to replace a history entry with user input
 void calculateAndReplace(vector<string>& vec) {
-    cout << "Który index zmienić? ";
     int indexToEdit;
-    cin >> indexToEdit;
+    
+    do {
+        cout << "Który index zmienić? ";
+        cin >> indexToEdit;
+    } while (indexToEdit < 0 || indexToEdit > vec.size());
 
     char scale = inputScale();
  
@@ -295,18 +298,31 @@ void generateRandomHistory(vector<string>& history, vector<string>& historyC, ve
 
     double temp = valuesC(gen);
 
-    cout << "Ile losowych liczb wpisać? ";
     int count;
-    cin >> count;
+    
+    while (true) {
+        cout << "Ile losowych liczb wpisać? ";
+        cin >> count;
+
+        if (cin.fail()) {
+            cin.clear();
+
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            cout << "Wpisz liczbe!! ";
+        } else {
+            break;
+        }
+    }
 
     char option;
 
     if (count + history.size() > 100) {
-        cout << "Zamało miejsca! Chcesz wypełnić historie " << ( count + history.size() ) - 100 << " elementami? (Y/n) ";
+        cout << "Zamało miejsca! Chcesz wypełnić historie " << count - ( ( count + history.size() ) - 100 ) << " elementami? (Y/n) ";
         cin >> option;
 
         if (option == 'Y' || option == 'y') {
-            count = ( count + history.size() ) - 100;
+            count = count - ( ( count + history.size() ) - 100 );
         } else {
             return;
         }
