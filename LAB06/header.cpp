@@ -150,6 +150,7 @@ void showHistoryMenu() {
     cout << "3 - Tylko K - > inne" << endl;
     cout << "4 - Cała historia" << endl;
     cout << "5 - Edytuj historie" << endl;
+    cout << "6 - Zakończ" << endl;
     cout << "Wybierz opcje: ";
 }
 
