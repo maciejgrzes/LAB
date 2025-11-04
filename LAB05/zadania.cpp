@@ -245,7 +245,7 @@ int main() {
 Code:
 */
 
-void printTable(int width, int height, int arr[7][10]) {
+void printTable(int width, int height, int arr[3][3]) {
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             cout << arr[i][j] << " ";
@@ -255,9 +255,25 @@ void printTable(int width, int height, int arr[7][10]) {
     }
 }
 
+int sumRow(int arr[3][3], int w, int target) {
+    int res = 0;
+    for (int i = 0; i < w; i++) {
+        res += arr[target][i];
+    }
+    return res;
+}
+
+int sumColumn(int arr[3][3], int h, int target) {
+    int res = 0;
+    for (int i = 0; i < h; i++) {
+        res += arr[i][target];
+    }
+    return res;
+}
+
 int main() {
-    const int w = 7;
-    const int h = 10;
+    const int w = 3;
+    const int h = 3;
     
     int tab1[w][h] = {0};
     int tab2[w][h] = {0};
@@ -268,19 +284,26 @@ int main() {
     random_device rd;
     mt19937 gen(rd());
 
-    uniform_int_distribution<int> dist(0,100);
+    uniform_int_distribution<int> dist(1,9);
 
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
             tab1[i][j] = dist(gen);
             tab2[i][j] = dist(gen);
         }
     }
 
     // addition
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
             add[i][j] = tab1[i][j] + tab2[i][j];
+        }
+    }
+
+    // multiplication
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
+            mul[i][j] = sumRow(tab1, w, i) + sumColumn(tab2, h, j);
         }
     }
     
@@ -297,5 +320,22 @@ int main() {
     // add
     printTable(w, h, add);
 
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+
+    // tab1
+    printTable(w, h, tab1);
+
+    cout << '*' << endl;
+
+    // tab2
+    printTable(w, h, tab2);
+
+    cout << '=' << endl;
+
+    // mul
+    printTable(w, h, mul);
     return 0;
 }
