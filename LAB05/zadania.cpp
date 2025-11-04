@@ -204,7 +204,7 @@ int main() {
     Zadanie6:
 
 Code:
-*/
+
 
 int main() {
     random_device rd;
@@ -233,6 +233,69 @@ int main() {
     cout << endl;
     cout << luckyNum << endl;
     cout << count << endl;
+
+    return 0;
+}
+*/
+
+
+/*
+    Zadanie7 i 8:
+
+Code:
+*/
+
+void printTable(int width, int height, int arr[7][10]) {
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            cout << arr[i][j] << " ";
+        if (j == width-1)
+            cout << endl;
+        }
+    }
+}
+
+int main() {
+    const int w = 7;
+    const int h = 10;
+    
+    int tab1[w][h] = {0};
+    int tab2[w][h] = {0};
+
+    int add[w][h] = {0};
+    int mul[w][h] = {0};
+    
+    random_device rd;
+    mt19937 gen(rd());
+
+    uniform_int_distribution<int> dist(0,100);
+
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            tab1[i][j] = dist(gen);
+            tab2[i][j] = dist(gen);
+        }
+    }
+
+    // addition
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            add[i][j] = tab1[i][j] + tab2[i][j];
+        }
+    }
+    
+    // tab1
+    printTable(w, h, tab1);
+
+    cout << '+' << endl;
+
+    // tab2
+    printTable(w, h, tab2);
+
+    cout << '=' << endl;
+
+    // add
+    printTable(w, h, add);
 
     return 0;
 }
