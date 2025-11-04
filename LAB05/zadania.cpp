@@ -149,3 +149,51 @@ int main() {
     return 0;
 }
 */
+
+/*
+    Zadanie5:
+
+Code:
+*/
+
+int main() {
+    int tab[10] = {0};
+    int n;
+
+    for (int i = 0; i < 10; i++) {
+        cin >> n;
+        if (n >= 0 && n <= 10) {
+            tab[i] = n;
+        }
+    }
+
+    for (int num : tab) {
+        cout << num << ' ';
+    }
+    cout << endl;
+
+    int min = tab[0];
+    int max = tab[0];
+    double avg = 0;
+
+    int count = 0;
+
+    for (int i = 0; i < 10; i++) {
+        if (tab[i] < min) {
+            min = tab[i];
+        } 
+        if (tab[i] > max) {
+            max = tab[i];
+        }
+        avg += tab[i];
+        if (tab[i] != 0) {
+            count += 1;
+        }
+    }
+
+    cout << "min: " << min << endl;
+    cout << "max: " << max << endl;
+    cout << "avg: " << avg/count << endl;
+
+    return 0;
+}
