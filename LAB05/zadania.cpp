@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <random>
 using namespace std;
 
 /*
@@ -154,7 +155,7 @@ int main() {
     Zadanie5:
 
 Code:
-*/
+
 
 int main() {
     int tab[10] = {0};
@@ -194,6 +195,44 @@ int main() {
     cout << "min: " << min << endl;
     cout << "max: " << max << endl;
     cout << "avg: " << avg/count << endl;
+
+    return 0;
+}
+*/
+
+/*
+    Zadanie6:
+
+Code:
+*/
+
+int main() {
+    random_device rd;
+    mt19937 gen(rd());
+
+    uniform_int_distribution<int> dist(0,10);
+
+    int tab[10] = {0};
+
+    for (int i = 0; i < 10; i++) {
+        tab[i] = dist(gen);
+    }
+    
+    int luckyNum = dist(gen);
+    int count;
+
+    for (int num : tab) {
+        if (num == luckyNum) {
+            count++;
+        }
+    }
+
+    for (int num : tab) {
+        cout << num << ' ';
+    }
+    cout << endl;
+    cout << luckyNum << endl;
+    cout << count << endl;
 
     return 0;
 }
