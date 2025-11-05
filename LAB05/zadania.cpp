@@ -330,7 +330,7 @@ int main() {
     Zadanie9:
 
 Code:
-*/
+
 
 #define r 5
 #define c 5
@@ -367,6 +367,50 @@ int main() {
 
     printTable(r, c, tab);
     cout << "The sum on the diagnal: " << diagSum << endl;
+
+    return 0;
+}
+*/
+
+/*
+    Zadanie10:
+
+Code:
+*/
+
+int main() {
+    random_device rd;
+    mt19937 gen(rd());
+
+    uniform_int_distribution<int> dist(1,10);
+
+    int tab[10] = {0};
+
+    for (int i = 0; i < 10; i++) {
+        tab[i] = dist(gen);
+    }
+
+    for (int num : tab) {
+        cout << num << ' ';
+    } cout << endl;
+
+    int tmp;
+
+
+    for (int i = 0; i < 9; i++) {
+        for (int j = i + 1; j < 10; j++) {
+            if (tab[j] < tab[i]) {
+                tmp = tab[i];
+                tab[i] = tab[j];
+                tab[j] = tmp;
+            }
+        }
+    }
+
+
+    for (int num : tab) {
+        cout << num << ' ';
+    } cout << endl;
 
     return 0;
 }
