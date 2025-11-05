@@ -243,7 +243,7 @@ int main() {
     Zadanie7 i 8:
 
 Code:
-*/
+
 
 #define w 5
 #define h 5
@@ -252,9 +252,8 @@ void printTable(int width, int height, int arr[w][h]) {
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             cout << arr[i][j] << " ";
-        if (j == width-1)
-            cout << endl;
         }
+        cout << endl;
     }
 }
 
@@ -323,5 +322,51 @@ int main() {
 
     // mul
     printTable(w, h, mul);
+    return 0;
+}
+*/
+
+/*
+    Zadanie9:
+
+Code:
+*/
+
+#define r 5
+#define c 5
+
+void printTable(int width, int height, int arr[r][c]) {
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            cout << arr[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+
+int main() {
+    int tab[r][c] = {0};
+    int tmp;
+    int diagSum = 0;
+
+    for (int i = 0; i < r; i++) {
+        for (int j = 0; j < c; j++) {
+            cout << "r: " << i << " c: " << j << "   ";
+            cin >> tmp;
+            tab[i][j] = tmp;
+        }
+    }
+
+    for (int i = 0; i < r; i++) {
+        for (int j = 0; j < c; j++) {
+            if (i == j) {
+                diagSum += tab[i][j];
+            }
+        }
+    }
+
+    printTable(r, c, tab);
+    cout << "The sum on the diagnal: " << diagSum << endl;
+
     return 0;
 }
