@@ -245,7 +245,10 @@ int main() {
 Code:
 */
 
-void printTable(int width, int height, int arr[3][3]) {
+#define w 5
+#define h 5
+
+void printTable(int width, int height, int arr[w][h]) {
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             cout << arr[i][j] << " ";
@@ -255,26 +258,7 @@ void printTable(int width, int height, int arr[3][3]) {
     }
 }
 
-int sumRow(int arr[3][3], int w, int target) {
-    int res = 0;
-    for (int i = 0; i < w; i++) {
-        res += arr[target][i];
-    }
-    return res;
-}
-
-int sumColumn(int arr[3][3], int h, int target) {
-    int res = 0;
-    for (int i = 0; i < h; i++) {
-        res += arr[i][target];
-    }
-    return res;
-}
-
 int main() {
-    const int w = 3;
-    const int h = 3;
-    
     int tab1[w][h] = {0};
     int tab2[w][h] = {0};
 
@@ -303,7 +287,9 @@ int main() {
     // multiplication
     for (int i = 0; i < w; i++) {
         for (int j = 0; j < h; j++) {
-            mul[i][j] = sumRow(tab1, w, i) + sumColumn(tab2, h, j);
+            for (int k = 0; k < w; k++) {
+                mul[i][j] += tab1[i][k] * tab2[k][j];
+            }
         }
     }
     
