@@ -376,7 +376,7 @@ int main() {
     Zadanie10:
 
 Code:
-*/
+
 
 int main() {
     random_device rd;
@@ -414,3 +414,4 @@ int main() {
 
     return 0;
 }
+*/
