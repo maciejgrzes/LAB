@@ -31,7 +31,7 @@ int main () {
     zadanie2:
 
 Code:
-*/
+
 
 int tab[10] = {0};
 int rozmiar = 10;
@@ -72,3 +72,55 @@ int main() {
     printTab();
     return 0;
 }
+*/
+
+/*
+    Zadanie3:
+
+Code:
+
+
+double temp1[10] = {0};
+double temp2[10] = {0};
+int idx = 0;
+
+double calculate(double temp) {
+    double tmp = temp + 273.15;
+    return tmp;
+}
+
+bool saveToTable(double t1, double t2) {
+    if (idx > 10) {
+        cout << "No space!";
+        return false;
+    } else {
+        temp1[idx] = t1;
+        temp2[idx] = t2;
+        idx++;
+        return true;
+    }
+}
+
+void print() {
+    if (idx > 10) return;
+    for (int i = 0; i < idx; i++) {
+        cout << i << ':' << temp1[i] << " -> " << temp2[i] << endl;
+    }
+}
+
+
+int main() {
+    while (true) {
+        double temp;
+        cin >> temp;
+
+        if (saveToTable(temp, calculate(temp))) {
+            print();
+        } else {
+            cout << "no more space";
+            return 0;
+        }
+    }
+    return 0;
+}
+*/
