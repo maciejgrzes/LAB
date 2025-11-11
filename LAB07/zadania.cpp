@@ -1,12 +1,13 @@
 #include <iostream>
 #include <string>
+#include <cmath>
 using namespace std; 
 
 /*
     Zadanie1:
 
 Code:
-*/
+
 
 void printChars(char c, int count) {
     if (count <= 0) return;
@@ -28,6 +29,40 @@ void drawLines(int row, int n) {
 
 int main() {
     drawLines(1, 10);
+
+    return 0;
+}
+*/
+
+/*
+    Zadanie2:
+
+Code:
+
+*/
+
+int sumI(int n, int digits) {
+    int res = 0;
+    for (int i = 0; i < digits; i++) {
+        res += n % 10;
+        n = floor(n / 10);
+    }
+    return res;
+}
+
+
+int res = 0;
+
+void sumR(int n) {
+    if (n == 0) return;
+    res += n % 10;
+    sumR(floor(n / 10));
+}
+
+int main() {
+    cout << sumI(55, 2) << endl;
+    sumR(55);
+    cout << res << endl;
 
     return 0;
 }
