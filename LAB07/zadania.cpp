@@ -39,7 +39,6 @@ int main() {
 
 Code:
 
-*/
 
 int sumI(int n, int digits) {
     int res = 0;
@@ -64,5 +63,29 @@ int main() {
     sumR(55);
     cout << res << endl;
 
+    return 0;
+}
+*/ 
+
+/*
+    Zadanie3:
+
+Code:
+*/
+
+
+string gstr = "";
+
+void reverse(string str, int index) {
+    if (index < 0) return;
+    gstr += str[index];
+    reverse(str, index-1);
+} 
+
+int main() {
+    string str;
+    getline(cin, str);
+    reverse(str, str.size());
+    cout << gstr << endl;
     return 0;
 }
