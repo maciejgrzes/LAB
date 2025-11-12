@@ -94,7 +94,6 @@ int main() {
     Zadanie4:
 
 Code:
-*/
 
 
 string gstr = "";
@@ -118,5 +117,41 @@ int main() {
     } else {
         cout << "false" << endl;
     }
+    return 0;
+}
+*/
+
+/*
+    Zadanie5:
+
+Code:
+*/
+
+int maxI(int arr[], int size) {
+    int res = arr[0];
+    for (int i = 0; i < size; i++) {
+        if (arr[i] > res) {
+            res = arr[i];
+        }
+    }
+    return res;
+}
+
+int main() {
+    int n, size;
+    cin >> size;
+    
+    int arr[size];
+    for (int i = 0; i < size; i++) {
+        cin >> n;
+        arr[i] = n;
+    }
+
+    for (int num : arr) {
+        cout << num << ' ';
+    } cout << endl;
+
+    cout << maxI(arr, size) << endl;
+
     return 0;
 }
