@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+#include <vector>
 using namespace std; 
 
 /*
@@ -125,7 +126,7 @@ int main() {
     Zadanie5:
 
 Code:
-*/
+
 
 int maxI(int arr[], int size) {
     int res = arr[0];
@@ -167,3 +168,42 @@ int main() {
     cout << res << endl;
     return 0;
 }
+*/
+
+/*
+    Zadanie6:
+
+Code:
+
+
+vector<int> fibarr = {0, 1};
+
+void fibI(int n) {
+    for (int i = 0; i < n; i++) {
+        fibarr.push_back(fibarr[i] + fibarr[i+1]);
+    }
+}
+
+void fibR(int n) {
+    int s = fibarr.size() - 1;
+    if (s == n+1) return;
+    fibarr.push_back(fibarr[s] + fibarr[s-1]);
+    fibR(n);
+}
+
+
+int main() {
+    int n;
+    cin >> n;
+
+    char c;
+    cin >> c;
+
+    if (c != 'r') fibI(n);
+    else fibR(n);
+
+    cout << fibarr.back() << endl;
+
+    return 0;
+}
+*/
