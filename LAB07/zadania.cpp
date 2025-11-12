@@ -137,6 +137,15 @@ int maxI(int arr[], int size) {
     return res;
 }
 
+int res = 0;
+void maxR(int arr[], int size) {
+    if (size < 0) return;
+    if (res < arr[size]) {
+        res = arr[size];
+    }
+    maxR(arr, size-1);
+}
+
 int main() {
     int n, size;
     cin >> size;
@@ -153,5 +162,8 @@ int main() {
 
     cout << maxI(arr, size) << endl;
 
+    maxR(arr, size-1);
+    
+    cout << res << endl;
     return 0;
 }
