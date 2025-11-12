@@ -71,7 +71,6 @@ int main() {
     Zadanie3:
 
 Code:
-*/
 
 
 string gstr = "";
@@ -89,3 +88,5 @@ int main() {
     cout << gstr << endl;
     return 0;
 }
+*/
+
