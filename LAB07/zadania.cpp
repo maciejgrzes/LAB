@@ -84,9 +84,39 @@ void reverse(string str, int index) {
 int main() {
     string str;
     getline(cin, str);
-    reverse(str, str.size());
+    reverse(str, str.size()-1);
     cout << gstr << endl;
     return 0;
 }
 */
 
+/*
+    Zadanie4:
+
+Code:
+*/
+
+
+string gstr = "";
+
+void reverse(string str, int index) {
+    if (index < 0) return;
+    gstr += str[index];
+    reverse(str, index-1);
+}
+
+int main() {
+    string str;
+    getline(cin, str);
+    reverse(str, str.size()-1);
+
+    cout << str << endl;
+    cout << gstr << endl;
+
+    if (str == gstr) {
+        cout << "true" << endl;
+    } else {
+        cout << "false" << endl;
+    }
+    return 0;
+}
