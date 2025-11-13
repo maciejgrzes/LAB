@@ -2,6 +2,8 @@
 #include <string>
 #include <cmath>
 #include <vector>
+#include <climits>
+#include <algorithm>
 using namespace std; 
 
 /*
@@ -293,7 +295,6 @@ int main() {
     Zadanie10:
 
 Code:
-*/
 
 
 int nwdI(int a, int b) {
@@ -334,3 +335,38 @@ int main() {
 
     return 0;
 }
+*/
+
+/*
+    Zadanie11:
+
+Code:
+*/
+
+int nwd(int a, int b) {
+    if (b == 0) return a;
+    return nwd(b, a % b);
+}
+
+int nwwI(int a, int b) {
+    return (a * b) / nwd(a, b);
+}
+
+int nwwR(int a, int b, int c) {
+    if (c % a == 0 && c % b == 0) {
+        return c;
+    } else {
+        return nwwR(a, b, c+1);
+    }
+}
+
+int main() {
+    int a, b;
+    cin >> a >> b;
+
+    cout << nwwI(a, b) << endl;
+    cout << nwwR(a, b, max(a, b)) << endl;
+
+    return 0;
+}
+
