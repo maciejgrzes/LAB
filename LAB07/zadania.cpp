@@ -138,14 +138,13 @@ int maxI(int arr[], int size) {
     return res;
 }
 
-int res = 0;
-void maxR(int arr[], int size) {
-    if (size < 0) return;
-    if (res < arr[size]) {
-        res = arr[size];
-    }
-    maxR(arr, size-1);
+int maxR(int arr[], int index) {
+    if (index < 0) return INT_MIN;
+
+    int sub = maxR(arr, index - 1);
+    return max(arr[index], sub);
 }
+
 
 int main() {
     int n, size;
@@ -162,10 +161,7 @@ int main() {
     } cout << endl;
 
     cout << maxI(arr, size) << endl;
-
-    maxR(arr, size-1);
-    
-    cout << res << endl;
+    cout << maxR(arr, size - 1) << endl;
     return 0;
 }
 */
@@ -179,15 +175,16 @@ Code:
 vector<int> fibarr = {0, 1};
 
 void fibI(int n) {
-    for (int i = 0; i < n; i++) {
-        fibarr.push_back(fibarr[i] + fibarr[i+1]);
+    while ((int)fibarr.size() <= n) {
+        int s = fibarr.size();
+        fibarr.push_back(fibarr[s - 1] + fibarr[s - 2]);
     }
 }
 
 void fibR(int n) {
-    int s = fibarr.size() - 1;
-    if (s == n+1) return;
-    fibarr.push_back(fibarr[s] + fibarr[s-1]);
+    int s = fibarr.size();
+    if (s > n) return; // done
+    fibarr.push_back(fibarr[s - 1] + fibarr[s - 2]);
     fibR(n);
 }
 
@@ -207,3 +204,29 @@ int main() {
     return 0;
 }
 */
+
+
+/*
+    Zadanie7:
+
+Code:
+*/
+
+int powI(int base, int exponent) {
+    int res = base;
+    for (int i = 1; i < exponent; i++) {
+        res *= base;
+    }
+    return res;
+}
+
+int powR(int base, int exponent) {
+    if (exponent == 0) return 1;
+    return base * powR(base, exponent- 1);
+}
+
+int main() {
+    cout << powI(3, 8) << endl;
+    cout << powR(3, 8) << endl;
+    return 0;
+}
