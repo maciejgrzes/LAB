@@ -210,7 +210,7 @@ int main() {
     Zadanie7:
 
 Code:
-*/
+
 
 int powI(int base, int exponent) {
     int res = base;
@@ -230,3 +230,33 @@ int main() {
     cout << powR(3, 8) << endl;
     return 0;
 }
+*/
+
+/*
+    Zadanie8:
+
+Code:
+
+
+int factI(int n) {
+    int res = 1;
+    for (int i = 2; i <= n; i++) {
+        res *= i;
+    }
+    return res;
+}
+
+int factR(int n) {
+    if (n == 0) return 1;
+    return n * factR(n-1);
+}
+
+int main() {
+    cout << factI(6) << endl;
+    cout << factR(6) << endl;
+
+    return 0;
+}
+*/
+
+
