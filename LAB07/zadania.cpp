@@ -263,7 +263,7 @@ int main() {
     Zadanie9:
 
 Code:
-*/
+
 
 int sumI(int n) {
     int res = 1;
@@ -284,6 +284,53 @@ int main() {
 
     cout << sumI(n) << endl;
     cout << sumR(n) << endl;
+
+    return 0;
+}
+*/
+
+/*
+    Zadanie10:
+
+Code:
+*/
+
+
+int nwdI(int a, int b) {
+    if (a < b) {
+        for (int i = 0; i <= a; i++) {
+            int d = a - i;
+            if (d != 0 && b % d == 0 && a % d == 0) {
+                return d;
+            }
+        }
+    } else if (b < a) {
+        for (int i = 0; i <= b; i++) {
+            int d = b - i;
+            if (d != 0 && b % d == 0 && a % d == 0) {
+                return d;
+            }
+        }
+    } else {
+        return a;
+    }
+
+    return 1;
+}
+
+
+int nwdR(int a, int b) {
+    if (b == 0) return a;
+    return nwdR(b, a % b);
+}
+
+
+int main() {
+    int a, b;
+    cin >> a >> b;
+
+    cout << nwdI(a, b) << endl;
+    cout << nwdR(a, b) << endl;
 
     return 0;
 }
