@@ -341,7 +341,7 @@ int main() {
     Zadanie11:
 
 Code:
-*/
+
 
 int nwd(int a, int b) {
     if (b == 0) return a;
@@ -369,4 +369,4 @@ int main() {
 
     return 0;
 }
-
+*/
