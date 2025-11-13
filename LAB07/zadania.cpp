@@ -259,4 +259,31 @@ int main() {
 }
 */
 
+/*
+    Zadanie9:
 
+Code:
+*/
+
+int sumI(int n) {
+    int res = 1;
+    for (int i = 2; i <= n; i++) {
+        res += i;
+    }
+    return res;
+}
+
+int sumR(int n) {
+    if (n == 0) return 0;
+    return n + sumR(n-1);
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    cout << sumI(n) << endl;
+    cout << sumR(n) << endl;
+
+    return 0;
+}
