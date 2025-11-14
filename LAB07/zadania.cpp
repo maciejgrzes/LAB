@@ -2,6 +2,8 @@
 #include <string>
 #include <cmath>
 #include <vector>
+#include <climits>
+#include <algorithm>
 using namespace std; 
 
 /*
@@ -138,14 +140,13 @@ int maxI(int arr[], int size) {
     return res;
 }
 
-int res = 0;
-void maxR(int arr[], int size) {
-    if (size < 0) return;
-    if (res < arr[size]) {
-        res = arr[size];
-    }
-    maxR(arr, size-1);
+int maxR(int arr[], int index) {
+    if (index < 0) return INT_MIN;
+
+    int sub = maxR(arr, index - 1);
+    return max(arr[index], sub);
 }
+
 
 int main() {
     int n, size;
@@ -162,10 +163,7 @@ int main() {
     } cout << endl;
 
     cout << maxI(arr, size) << endl;
-
-    maxR(arr, size-1);
-    
-    cout << res << endl;
+    cout << maxR(arr, size - 1) << endl;
     return 0;
 }
 */
@@ -179,15 +177,16 @@ Code:
 vector<int> fibarr = {0, 1};
 
 void fibI(int n) {
-    for (int i = 0; i < n; i++) {
-        fibarr.push_back(fibarr[i] + fibarr[i+1]);
+    while ((int)fibarr.size() <= n) {
+        int s = fibarr.size();
+        fibarr.push_back(fibarr[s - 1] + fibarr[s - 2]);
     }
 }
 
 void fibR(int n) {
-    int s = fibarr.size() - 1;
-    if (s == n+1) return;
-    fibarr.push_back(fibarr[s] + fibarr[s-1]);
+    int s = fibarr.size();
+    if (s > n) return; // done
+    fibarr.push_back(fibarr[s - 1] + fibarr[s - 2]);
     fibR(n);
 }
 
@@ -203,6 +202,170 @@ int main() {
     else fibR(n);
 
     cout << fibarr.back() << endl;
+
+    return 0;
+}
+*/
+
+
+/*
+    Zadanie7:
+
+Code:
+
+
+int powI(int base, int exponent) {
+    int res = base;
+    for (int i = 1; i < exponent; i++) {
+        res *= base;
+    }
+    return res;
+}
+
+int powR(int base, int exponent) {
+    if (exponent == 0) return 1;
+    return base * powR(base, exponent- 1);
+}
+
+int main() {
+    cout << powI(3, 8) << endl;
+    cout << powR(3, 8) << endl;
+    return 0;
+}
+*/
+
+/*
+    Zadanie8:
+
+Code:
+
+
+int factI(int n) {
+    int res = 1;
+    for (int i = 2; i <= n; i++) {
+        res *= i;
+    }
+    return res;
+}
+
+int factR(int n) {
+    if (n == 0) return 1;
+    return n * factR(n-1);
+}
+
+int main() {
+    cout << factI(6) << endl;
+    cout << factR(6) << endl;
+
+    return 0;
+}
+*/
+
+/*
+    Zadanie9:
+
+Code:
+
+
+int sumI(int n) {
+    int res = 1;
+    for (int i = 2; i <= n; i++) {
+        res += i;
+    }
+    return res;
+}
+
+int sumR(int n) {
+    if (n == 0) return 0;
+    return n + sumR(n-1);
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    cout << sumI(n) << endl;
+    cout << sumR(n) << endl;
+
+    return 0;
+}
+*/
+
+/*
+    Zadanie10:
+
+Code:
+
+
+int nwdI(int a, int b) {
+    if (a < b) {
+        for (int i = 0; i <= a; i++) {
+            int d = a - i;
+            if (d != 0 && b % d == 0 && a % d == 0) {
+                return d;
+            }
+        }
+    } else if (b < a) {
+        for (int i = 0; i <= b; i++) {
+            int d = b - i;
+            if (d != 0 && b % d == 0 && a % d == 0) {
+                return d;
+            }
+        }
+    } else {
+        return a;
+    }
+
+    return 1;
+}
+
+
+int nwdR(int a, int b) {
+    if (b == 0) return a;
+    return nwdR(b, a % b);
+}
+
+
+int main() {
+    int a, b;
+    cin >> a >> b;
+
+    cout << nwdI(a, b) << endl;
+    cout << nwdR(a, b) << endl;
+
+    return 0;
+}
+*/
+
+/*
+    Zadanie11:
+
+Code:
+
+
+int nwd(int a, int b) {
+    if (b == 0) return a;
+    return nwd(b, a % b);
+}
+
+int nwwI(int a, int b) {
+    return (a * b) / nwd(a, b);
+}
+
+int nwwR(int a, int b, int c) {
+    if (c % a == 0 && c % b == 0) {
+        return c;
+    } else {
+        return nwwR(a, b, c+1);
+    }
+}
+
+int main() {
+    int a, b;
+    cin >> a >> b;
+
+    cout << nwwI(a, b) << endl;
+    cout << nwwR(a, b, max(a, b)) << endl;
 
     return 0;
 }
