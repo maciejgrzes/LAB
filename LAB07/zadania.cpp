@@ -185,7 +185,7 @@ void fibI(int n) {
 
 void fibR(int n) {
     int s = fibarr.size();
-    if (s > n) return; // done
+    if (s > n) return;
     fibarr.push_back(fibarr[s - 1] + fibarr[s - 2]);
     fibR(n);
 }
