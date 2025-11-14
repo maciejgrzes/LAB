@@ -1,3 +1,5 @@
+#include <climits>
+#include <vector>
 #include <iostream> 
 #include <stdlib.h>
 #include <string>
@@ -49,6 +51,34 @@ void reverse(string str, int index) {
     reverse(str, index-1);
 } 
 
+vector<int> fibarr = {0, 1};
+void fibI(int n) {
+    while ((int)fibarr.size() <= n) {
+        int s = fibarr.size();
+        fibarr.push_back(fibarr[s - 1] + fibarr[s - 2]);
+    }
+}
+
+void fibR(int n) {
+    int s = fibarr.size();
+    if (s > n) return;
+    fibarr.push_back(fibarr[s - 1] + fibarr[s - 2]);
+    fibR(n);
+}
+
+int powI(int base, int exponent) {
+    int res = base;
+    for (int i = 1; i < exponent; i++) {
+        res *= base;
+    }
+    return res;
+}
+
+int powR(int base, int exponent) {
+    if (exponent == 0) return 1;
+    return base * powR(base, exponent- 1);
+}
+
 int main() {
     double czas;
     clock_t start, koniec;
@@ -57,21 +87,32 @@ int main() {
 
     // drawLines(1, 50000); Czas dzialania = 69.6653 nice
     // 
+    //
+    //
     // string s = "asdyfaebhnkszhdgfkljhbaelkjhfgsaodfawhbdjnfeuyhaehfowuyh";
     // for (int i = 0; i < 1'000'000; i++) {
     //     reverse(s, size(s)-1);
     // } Czas dzialania = 7.4843 wow! 
     //
-    // for (int i = 0; i < 100'000'000; i++) {
-    //     sumR(1844674407370955161);
-    // } Czas dzialania = 12.7338
-    // 
-    // for (int i = 0; i < 100'000'000; i++) {
-    //     sumI(1844674407370955161, 19);
-    // } Czas dzialania = 9.46461
     //
-    // zabawne jest to ze aby policzic sume cyfr bliko maksymalnej liczbie która w c++ mozemy zastosowac 100 milionów razy 
-    // zajmuje mniej niż 10 sekund
+    //
+    // for (int i = 0; i < 100'000'000; i++) {
+    //     sumR(ULLONG_MAX);
+    // } Czas dzialania = 16.3731
+    // 
+    //
+    //
+    // for (int i = 0; i < 100'000'000; i++) {
+    //     sumI(ULLONG_MAX, 20);
+    // } Czas dzialania = 10.6727
+    //
+    //
+    // fibI(200'000'000); Czas dzialania = 5.91978
+    //
+    // fibR(1000); recursion depth limit moment
+    //
+    //
+    // powI i powR so mega szybkie nawet dla 2^127 ok 2e-06
 
     koniec = clock();
     czas = (double)(koniec - start) / CLOCKS_PER_SEC;
