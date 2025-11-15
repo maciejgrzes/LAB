@@ -24,6 +24,7 @@ int main() {
 
 Code:
 
+
 int main() {
     int tab[10];
     int *ptr;
@@ -49,6 +50,7 @@ int main() {
     Zadanie2.1;
 Code:
 
+
 int main() {
     int tab[10] = {0};
     int *ptr;
@@ -71,3 +73,34 @@ int main() {
     return 0;
 }
 */
+
+/*
+    Zadanie3:
+
+Code:
+*/
+
+int main() {
+    int size;
+    cin >> size;
+    
+    float *arr = new float[size];
+    float *ptr = &arr[size-1];
+    
+    for (int i = 0; i < size; i++) {
+        arr[i] = i;
+    }
+
+    while (true) {
+        cout << ptr << endl;
+        cout << *ptr << endl;
+        if (ptr == &arr[0]) {
+            break;
+        } else {
+            ptr--;
+        }
+    }
+
+    delete[] arr;
+    return 0;
+}
