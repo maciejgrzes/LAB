@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 using namespace std;
 
 /*
@@ -78,14 +79,14 @@ int main() {
     Zadanie3:
 
 Code:
-*/
+
 
 int main() {
     int size;
     cin >> size;
     
-    float *arr = new float[size];
-    float *ptr = &arr[size-1];
+    double *arr = new double[size];
+    double *ptr = &arr[size-1];
     
     for (int i = 0; i < size; i++) {
         arr[i] = i;
@@ -104,3 +105,47 @@ int main() {
     delete[] arr;
     return 0;
 }
+*/
+
+/*
+    Zadanie4:
+
+Code:
+
+
+void printArr(int size, int *arr) {
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << ' ';
+    } cout << endl;
+}
+
+double avg(int *arr, int size) {
+    double res = 0;
+    for (int i = 0; i < size; i++) {
+        res += arr[i];
+    }
+    return res / size;
+}
+
+int main() {
+    random_device rd;
+    mt19937 gen(rd());
+
+    uniform_int_distribution<int> num(0,10);
+    
+    int size;
+    cin >> size;
+
+    int *arr = new int[size];
+
+    for (int i = 0; i < size; i++) {
+        arr[i] = num(gen);
+    }
+
+    printArr(size, arr);
+    cout << "Avg: " << avg(arr, size) << endl;
+
+    delete[] arr; 
+    return 0;
+}
+*/
