@@ -49,7 +49,6 @@ int main() {
     Zadanie3:
 
 Code:
-*/
 
 struct Triangle {
     int a;  
@@ -75,3 +74,4 @@ int main() {
     
     return 0;
 }
+*/
