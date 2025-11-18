@@ -44,3 +44,34 @@ int main() {
     return 0;
 }
 */
+
+/*
+    Zadanie3:
+
+Code:
+*/
+
+struct Triangle {
+    int a;  
+    int b;  
+    int c;  
+};
+
+void fun(Triangle one, Triangle* two) {
+    two->a = one.a;
+    two->b = one.b;
+    two->c = one.c;
+}
+
+int main() {
+    Triangle one = {5, 5, 5};
+    Triangle two = {1, 1, 1};
+    
+    fun(one, &two);
+
+    cout << two.a << endl;
+    cout << two.b << endl;
+    cout << two.c << endl;
+    
+    return 0;
+}
