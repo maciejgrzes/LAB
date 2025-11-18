@@ -127,7 +127,8 @@ int main() {
     cout << arr[x] + arr[y] << endl;
     cout << arr[x] * arr[y] << endl;
     cout << max(arr, size) - min(arr, size) << endl;
-
+    
+    delete[] arr;
     return 0;
 }
 */
