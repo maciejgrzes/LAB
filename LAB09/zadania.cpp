@@ -21,3 +21,26 @@ int main() {
     return 0;
 }
 */
+
+/*
+    Zadanie2:
+
+Code:
+
+
+struct Rect {
+    int a;
+    int b;
+};
+
+int area(Rect rect) {
+    return rect.a * rect.b;
+}
+
+int main() {
+    Rect rect = {5, 5};
+
+    cout << area(rect) << endl;
+    return 0;
+}
+*/
