@@ -28,11 +28,52 @@ void insertNode(int key, string data) {
 }
 
 void displayList() {
-    cout << "The entire list:" << endl;
     Node* temp = head;
+    int i = 1;
+    if (temp == nullptr) {
+        cout << "List is empty..." << endl;
+    }
     while (temp != nullptr) {
-        cout << "Key: " << temp->key << ", Data: " << temp->data << endl;
+        cout << "Index: " << i << ", Key: " << temp->key << ", Data: " << temp->data << endl;
         temp = temp->next;
+        i++;
+    }
+}
+
+Node* whichNode(int index) {
+    Node* elementToDelete = head;
+
+    for (int i = 0; i < index; i++) {
+        elementToDelete = elementToDelete->next;
+    }
+    return elementToDelete;
+}
+
+void deleteNode(Node* node) {
+    if (head == nullptr) {
+        return;
+    } else if (head == node && node->next == nullptr) {
+        delete head;
+        head = nullptr;
+    } else if (head == node && node->next != nullptr) {
+        delete head;
+        head = node->next;
+    } else if (head != node && node->next == nullptr) {
+        Node* element = head;
+        while (element->next != node) {
+            element = element->next;
+        }
+        element->next = nullptr;
+        delete node;
+        lastAdded->next = element;
+        lastAdded = element;
+    } else {
+        Node* element = head;
+        while (element->next != node) {
+            element = element->next;
+        }
+        element->next = node->next;
+        delete node;
     }
 }
 
@@ -50,7 +91,7 @@ void pressEnter() {
     else
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-    cout << "Naciśnij Enter aby kontynuować...";
+    cout << "Press Enter to continue...";
     cin.get();
 }
 
@@ -80,10 +121,18 @@ int main() {
             break;
         }
 
-        case 2:
-            //TODO
-            break;
+        case 2: {
+            displayList();
+            int index;
+            cout << "Which element to remove? ";
+            cin >> index;
 
+            deleteNode(whichNode(index-1));
+            displayList();
+            pressEnter();
+            break;
+        }
+        
         case 3:
             displayList();
             pressEnter();
