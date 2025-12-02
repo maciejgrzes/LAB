@@ -44,6 +44,21 @@ void displayListBackwards() {
     }
 }
 
+void deleteNode() {
+    Node* node = head;
+    if (head == nullptr) {
+        return;
+    } else if (node->next == nullptr) {
+        delete head;
+        head = nullptr;
+    } else {
+        delete head;
+        head = node->next;
+        node = node->next;
+        node->prev = nullptr;
+    }
+}
+
 int main() {
     int n, key;
     string data;
@@ -59,6 +74,15 @@ int main() {
         insertNode(key, data);
     }
 
+    cout << "The entire list:" << endl;
+    displayList();
+    
+    cout << "The entire list backwards:" << endl;
+    displayListBackwards();
+
+    cout << "Deleting first element..." << endl;
+    deleteNode();
+    
     cout << "The entire list:" << endl;
     displayList();
     
