@@ -1,5 +1,4 @@
 #include <iostream>
-#include <stdio.h>
 using namespace std;
 
 struct Node {
@@ -17,12 +16,14 @@ void insertNode(int key, string data) {
     newNode->key = key;
     newNode->data = data;
     newNode->next = nullptr;
+    newNode->prev = nullptr;
 
     if (head == nullptr) {
         head = newNode;
         lastAdded = newNode;
     } else {
         lastAdded->next = newNode;
+        newNode->prev = lastAdded;
         lastAdded = newNode;
     }
 }
