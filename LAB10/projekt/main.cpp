@@ -3,11 +3,6 @@
 #include <random>
 using namespace std;
 
-// For random ID generation
-random_device rd;
-mt19937 gen(rd());
-uniform_int_distribution<int> IDgen(1000,9999);
-
 // Decleration of structs
 struct Adress {
     string street = "";
@@ -30,7 +25,7 @@ struct Employee {
     Employee* prev = nullptr;
 };
 
-// List head
+// List head and last added employee
 Employee* head = nullptr;
 Employee* lastAdded = nullptr;
 
@@ -45,6 +40,7 @@ Adress* addAdress(string street, int houseNumber, int postalCode, string city, i
     return newAdress;
 }
 
+// generating random uniqe id number
 bool idExists(long value) {
     Employee* temp = head;
     while (temp) {
@@ -55,7 +51,10 @@ bool idExists(long value) {
 }
 
 long generateRandomID() {
-    Employee* temp = head;
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> IDgen(1000,9999);
+
     long ID;
 
     do {
@@ -65,13 +64,15 @@ long generateRandomID() {
     return ID;
 }
 
-void addEmployee(string name, string surname, long pesel, long phoneNumber, Adress* adress) {
+void addEmployee(string name, string surname, long pesel, long phoneNumber, string position, int salary, Adress* adress) {
     Employee* newEmployee = new Employee();
     newEmployee->name = name;
     newEmployee->surname = surname;
     newEmployee->pesel = pesel;
     newEmployee->adress = *adress;
     newEmployee->phoneNumber = phoneNumber;
+    newEmployee->position = position;
+    newEmployee->salary = salary;
     newEmployee->next = nullptr;
     newEmployee->prev = nullptr;
 
@@ -104,6 +105,7 @@ void displayEmployees() {
         cout << "Adress: ";
         cout << temp->adress.street << ' ';
         cout << temp->adress.houseNumber << ' ';
+        cout << temp->adress.postalCode << ' ';
         cout << temp->adress.city << ' ';
         cout << temp->adress.phoneNumber << endl;
 
@@ -116,9 +118,91 @@ void displayEmployees() {
     }
 }
 
+void displayMenu() {
+    cout << "1. Add employee" << endl;
+    cout << "2. Search for employee" << endl;
+    cout << "3. Remove employee" << endl;
+    cout << "4. Show all employee" << endl;
+    cout << "5. Exit" << endl;
+    cout << "Select option: ";
+}
+
+void pressEnter() {
+    if (cin.peek() == '\n')
+        cin.ignore();
+    else
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    cout << "Press Enter to continue...";
+    cin.get();
+}
+
 int main() {
-    addEmployee("John", "Pork", 123456789, 123123123, addAdress("main", 12, 12451, "somecity", 123123123));
-    displayEmployees();
+    bool running = true;
+    int option;
+
+    while (running) {
+        cout << "\033[2J\033[1;1H";
+        displayMenu();
+        cin >> option;
+
+        if (option < 1 || option > 4) running = false;
+
+        switch (option) {
+            // Add employee
+            case 1: {
+                cout << "\033[2J\033[1;1H";
+                string street, city;
+                int houseNumber, postalCode, housePhoneNumber;
+                cout << "Street: ";
+                cin >> street;
+                cout << "City: ";
+                cin >> city;
+                cout << "House Number: ";
+                cin >> houseNumber;
+                cout << "Postal Code: ";
+                cin >> postalCode;
+                cout << "House phone number: ";
+                cin >> housePhoneNumber;
+                Adress* newAdress = addAdress(street, houseNumber, postalCode, city, housePhoneNumber);
+
+                string name, surname, position;
+                long pesel, phoneNumber;
+                int salary;
+                cout << "Name: ";
+                cin >> name;
+                cout << "Surname: ";
+                cin >> surname;
+                cout << "Pesel: ";
+                cin >> pesel;
+                cout << "Phone number: ";
+                cin >> phoneNumber;
+                cout << "Position: ";
+                cin >> position;
+                cout << "Salary: ";
+                cin >> salary;
+
+                addEmployee(name, surname, pesel, phoneNumber, position, salary, newAdress);
+                pressEnter();
+                break;
+            }
+
+            // Search for employee
+            case 2:
+                break;
+            
+            // Remove employee
+            case 3:
+                break;
+            
+            // Display employees
+            case 4:
+                cout << "\033[2J\033[1;1H";
+                displayEmployees();
+                pressEnter();
+                break;
+        }
+    }
 
     return 0;
 }
