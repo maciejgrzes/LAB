@@ -99,9 +99,25 @@ int main() {
             }
             
             // Remove employee
-            case 3:
+            case 3: {
+                if (listEmpty()) {
+                    cout << "No employee to remove...";
+                    pressEnter();
+                    break;
+                }
+                cout << "\033[2J\033[1;1H";
+                long n;
+                displayEmployees();
+                
+                cout << "Select employee to remove (pesel, ID or index): ";
+                cin >> n;
+
+                removeEmployee(n);
+                displayEmployees();
+                pressEnter();
                 break;
-            
+            }
+
             // Display employees
             case 4:
                 cout << "\033[2J\033[1;1H";

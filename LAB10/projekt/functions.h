@@ -48,4 +48,8 @@ void displayMenu();
 
 void pressEnter();
 
+void removeEmployee(long n);
+
+bool listEmpty();
+
 #endif

@@ -1,4 +1,5 @@
 #include "functions.h"
+#include <cstddef>
 #include <iostream>
 #include <string>
 #include <random>
@@ -238,4 +239,89 @@ void pressEnter() {
 
     cout << "Press Enter to continue...";
     cin.get();
+}
+
+void removeEmployee(long n) {
+    bool id = false;
+    bool pesel = false;
+    
+    Employee* temp = head;
+    while (!id) {
+        if (temp->ID == n) {
+            id = true;
+            break;
+        } else if (temp->next != nullptr){
+            temp = temp->next;
+        } else {
+            break;
+        }
+    }
+    while (!pesel) {
+        if (temp->pesel == n) {
+            pesel = true;
+            break;
+        } else if (temp->next != nullptr){
+            temp = temp->next;
+        } else {
+            break;
+        }
+    }
+
+    if (id || pesel) {
+        
+        if (temp == head && temp->next == nullptr) {
+            delete head;
+            head = nullptr;
+        } else if (temp == head && temp->next != nullptr) {
+            delete head;
+            head = temp->next;
+            temp = temp->next;
+            temp->prev = nullptr;
+        } else if (temp != head && temp->next == nullptr) {
+            (temp->prev)->next = nullptr;
+            lastAdded->next = temp->prev;
+            (temp->prev)->prev = lastAdded;
+            lastAdded = temp->prev;
+            delete temp;
+        } else {
+            (temp->prev)->next = temp->next;
+            (temp->prev)->prev = temp;
+            delete temp;
+        } 
+
+    } else {
+    temp = head;
+        for (int i = 0; i < n; i++) {
+            temp = temp->next;
+        }
+
+        if (temp == head && temp->next == nullptr) {
+            delete head;
+            head = nullptr;
+        } else if (temp == head && temp->next != nullptr) {
+            delete head;
+            head = temp->next;
+            temp = temp->next;
+            temp->prev = nullptr;
+        } else if (temp != head && temp->next == nullptr) {
+            (temp->prev)->next = nullptr;
+            lastAdded->next = temp->prev;
+            (temp->prev)->prev = lastAdded;
+            lastAdded = temp->prev;
+            delete temp;
+        } else {
+            (temp->prev)->next = temp->next;
+            (temp->prev)->prev = temp;
+            delete temp;
+        } 
+
+    }
+}
+
+bool listEmpty() {
+    if (head == nullptr) {
+        return true;
+    } else {
+        return false;
+    }
 }
