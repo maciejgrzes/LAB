@@ -14,11 +14,10 @@ Node* head = nullptr;
 Node* lastAdded = nullptr;
 
 Node* whichNode(int index) {
+    if (index < 0) return nullptr;
     Node* element = head;
-
-    for (int i = 0; i < index; i++) {
+    for (int i = 0; i < index && element != nullptr; i++)
         element = element->next;
-    }
     return element;
 }
 
@@ -58,9 +57,11 @@ void insertNodeAtSpecifiedPlace(int index, int key, string data) {
     } else {
         newNode->prev = nodeAtIndex;
         newNode->next = nodeAtIndex->next;
+        if (nodeAtIndex->next)
+            nodeAtIndex->next->prev = newNode;
         nodeAtIndex->next = newNode;
-        nodeAtIndex = nodeAtIndex->next;
-        (nodeAtIndex->next)->prev = newNode;
+        if (newNode->next == nullptr)
+            lastAdded = newNode;
     }
 }
 
