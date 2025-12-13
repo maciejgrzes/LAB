@@ -89,37 +89,32 @@ void displayListBackwards() {
 }
 
 
+
 void deleteNode(Node* node) {
-    if (head == nullptr) {
-        return;
-    } else if (head == node && node->next == nullptr) {
-        delete head;
-        head = nullptr;
-    } else if (head == node && node->next != nullptr) {
-        delete head;
-        head = node->next;
-        node = node->next;
-        node->prev = nullptr;
-    } else if (head != node && node->next == nullptr) {
-        Node* element = head;
-        while (element->next != node) {
-            element = element->next;
-        }
-        element->next = nullptr;
+    if (!node) return;
+    if (node == head && node->next == nullptr) {
         delete node;
-        lastAdded->next = element;
-        element->prev = lastAdded;
-        lastAdded = element;
-    } else {
-        Node* element = head;
-        while (element->next != node) {
-            element = element->next;
-        }
-        element->next = node->next;
-        element->prev = node;
+        head = nullptr;
+        lastAdded = nullptr;
+    }
+    else if (node == head) {
+        Node* newHead = node->next;
+        delete node;
+        head = newHead;
+        head->prev = nullptr;
+    }
+    else if (node->next == nullptr) {
+        lastAdded = node->prev;
+        lastAdded->next = nullptr;
+        delete node;
+    }
+    else {
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
         delete node;
     }
 }
+
 
 
 void displayMenu() {

@@ -52,10 +52,10 @@ void deleteNode() {
         delete head;
         head = nullptr;
     } else {
+        Node* newHead = head->next;
         delete head;
-        head = node->next;
-        node = node->next;
-        node->prev = nullptr;
+        head = newHead;
+        head->prev = nullptr;
     }
 }
 
