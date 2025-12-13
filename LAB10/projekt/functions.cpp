@@ -43,11 +43,19 @@ long generateRandomID() {
     return ID;
 }
 
+bool peselExists(long pesel) {
+    Employee* temp = head;
+    while (temp) {
+        if (temp->pesel == pesel) return true;
+        temp = temp->next;
+    }
+    return false;
+}
+
 void addEmployee(string name, string surname, long pesel, long phoneNumber, string position, int salary, Adress* adress) {
     Employee* newEmployee = new Employee();
     newEmployee->name = name;
     newEmployee->surname = surname;
-    newEmployee->pesel = pesel;
     newEmployee->adress = *adress;
     newEmployee->phoneNumber = phoneNumber;
     newEmployee->position = position;
@@ -56,6 +64,11 @@ void addEmployee(string name, string surname, long pesel, long phoneNumber, stri
     newEmployee->prev = nullptr;
 
     newEmployee->ID = generateRandomID();
+    while (peselExists) {
+        cout << "This pesel is already in the list!\nEnter new pesel: ";
+        cin << pesel;
+    }
+    newEmployee->pesel = pesel;
 
     if (head == nullptr) {
         head = newEmployee;
@@ -270,31 +283,20 @@ void removeEmployee(long n) {
     }
 
     if (id || pesel) {
-
-        // only node
         if (temp == head && temp->next == nullptr) {
             delete head;
             head = nullptr;
             lastAdded = nullptr;
-        }
-
-        // head, multiple nodes
-        else if (temp == head && temp->next != nullptr) {
+        } else if (temp == head && temp->next != nullptr) {
             Employee* newHead = head->next;
             delete head;
             head = newHead;
             head->prev = nullptr;
-        }
-
-        // tail
-        else if (temp->next == nullptr) {
+        } else if (temp->next == nullptr) {
             lastAdded = temp->prev;
             lastAdded->next = nullptr;
             delete temp;
-        }
-
-        // middle
-        else {
+        } else {
             temp->prev->next = temp->next;
             temp->next->prev = temp->prev;
             delete temp;
@@ -309,31 +311,21 @@ void removeEmployee(long n) {
         }
 
         if (temp == nullptr) return;
-
-        // only node
+        
         if (temp == head && temp->next == nullptr) {
             delete head;
             head = nullptr;
             lastAdded = nullptr;
-        }
-
-        // head
-        else if (temp == head) {
+        } else if (temp == head) {
             Employee* newHead = head->next;
             delete head;
             head = newHead;
             head->prev = nullptr;
-        }
-
-        // tail
-        else if (temp->next == nullptr) {
+        } else if (temp->next == nullptr) {
             lastAdded = temp->prev;
             lastAdded->next = nullptr;
             delete temp;
-        }
-
-        // middle
-        else {
+        } else {
             temp->prev->next = temp->next;
             temp->next->prev = temp->prev;
             delete temp;
