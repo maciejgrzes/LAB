@@ -42,37 +42,34 @@ void displayList() {
 
 Node* whichNode(int index) {
     Node* elementToDelete = head;
-
-    for (int i = 0; i < index; i++) {
+    
+    for (int i = 0; i < index && elementToDelete != nullptr; i++)
         elementToDelete = elementToDelete->next;
-    }
+    
     return elementToDelete;
 }
 
 void deleteNode(Node* node) {
-    if (head == nullptr) {
-        return;
-    } else if (head == node && node->next == nullptr) {
+    if (!node || !head) return;
+    
+    if (node == head && node->next == nullptr) {
         delete head;
         head = nullptr;
-    } else if (head == node && node->next != nullptr) {
+        lastAdded = nullptr;
+    } else if (node == head) {
+        Node* newHead = head->next;
         delete head;
-        head = node->next;
-    } else if (head != node && node->next == nullptr) {
-        Node* element = head;
-        while (element->next != node) {
-            element = element->next;
-        }
-        element->next = nullptr;
+        head = newHead;
+    } else if (node->next == nullptr) {
+        Node* prev = head;
+        while (prev->next != node) prev = prev->next;
+        prev->next = nullptr;
         delete node;
-        lastAdded->next = element;
-        lastAdded = element;
+        lastAdded = prev;
     } else {
-        Node* element = head;
-        while (element->next != node) {
-            element = element->next;
-        }
-        element->next = node->next;
+        Node* prev = head;
+        while (prev->next != node) prev = prev->next;
+        prev->next = node->next;
         delete node;
     }
 }
