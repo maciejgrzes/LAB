@@ -1,5 +1,4 @@
 #include "functions.h"
-#include <cstddef>
 #include <iostream>
 #include <string>
 #include <random>
@@ -241,80 +240,104 @@ void pressEnter() {
     cin.get();
 }
 
+
+
 void removeEmployee(long n) {
     bool id = false;
     bool pesel = false;
-    
+
     Employee* temp = head;
-    while (!id) {
+
+    // search by ID
+    while (!id && temp != nullptr) {
         if (temp->ID == n) {
             id = true;
             break;
-        } else if (temp->next != nullptr){
-            temp = temp->next;
-        } else {
-            break;
         }
+        temp = temp->next;
     }
-    while (!pesel) {
-        if (temp->pesel == n) {
-            pesel = true;
-            break;
-        } else if (temp->next != nullptr){
+
+    // search by PESEL
+    if (!id) {
+        temp = head;
+        while (!pesel && temp != nullptr) {
+            if (temp->pesel == n) {
+                pesel = true;
+                break;
+            }
             temp = temp->next;
-        } else {
-            break;
         }
     }
 
     if (id || pesel) {
-        
+
+        // only node
         if (temp == head && temp->next == nullptr) {
             delete head;
             head = nullptr;
-        } else if (temp == head && temp->next != nullptr) {
-            delete head;
-            head = temp->next;
-            temp = temp->next;
-            temp->prev = nullptr;
-        } else if (temp != head && temp->next == nullptr) {
-            (temp->prev)->next = nullptr;
-            lastAdded->next = temp->prev;
-            (temp->prev)->prev = lastAdded;
-            lastAdded = temp->prev;
-            delete temp;
-        } else {
-            (temp->prev)->next = temp->next;
-            (temp->prev)->prev = temp;
-            delete temp;
-        } 
+            lastAdded = nullptr;
+        }
 
-    } else {
-    temp = head;
-        for (int i = 0; i < n; i++) {
+        // head, multiple nodes
+        else if (temp == head && temp->next != nullptr) {
+            Employee* newHead = head->next;
+            delete head;
+            head = newHead;
+            head->prev = nullptr;
+        }
+
+        // tail
+        else if (temp->next == nullptr) {
+            lastAdded = temp->prev;
+            lastAdded->next = nullptr;
+            delete temp;
+        }
+
+        // middle
+        else {
+            temp->prev->next = temp->next;
+            temp->next->prev = temp->prev;
+            delete temp;
+        }
+    }
+
+    // NOT FOUND → treat as index
+    else {
+        temp = head;
+        for (int i = 0; i < n && temp != nullptr; i++) {
             temp = temp->next;
         }
 
+        if (temp == nullptr) return;
+
+        // only node
         if (temp == head && temp->next == nullptr) {
             delete head;
             head = nullptr;
-        } else if (temp == head && temp->next != nullptr) {
-            delete head;
-            head = temp->next;
-            temp = temp->next;
-            temp->prev = nullptr;
-        } else if (temp != head && temp->next == nullptr) {
-            (temp->prev)->next = nullptr;
-            lastAdded->next = temp->prev;
-            (temp->prev)->prev = lastAdded;
-            lastAdded = temp->prev;
-            delete temp;
-        } else {
-            (temp->prev)->next = temp->next;
-            (temp->prev)->prev = temp;
-            delete temp;
-        } 
+            lastAdded = nullptr;
+        }
 
+        // head
+        else if (temp == head) {
+            Employee* newHead = head->next;
+            delete head;
+            head = newHead;
+            head->prev = nullptr;
+        }
+
+        // tail
+        else if (temp->next == nullptr) {
+            lastAdded = temp->prev;
+            lastAdded->next = nullptr;
+            delete temp;
+        }
+
+        // middle
+        else {
+            temp->prev->next = temp->next;
+            temp->next->prev = temp->prev;
+            delete temp;
+        }
     }
 }
 
