@@ -12,7 +12,7 @@ int main() {
         displayMenu();
         cin >> option;
 
-        if (option < 1 || option > 4) running = false;
+        if (option < 1 || option > 5) running = false;
 
         switch (option) {
             // Add employee
@@ -122,6 +122,11 @@ int main() {
             case 4:
                 cout << "\033[2J\033[1;1H";
                 displayEmployees();
+                pressEnter();
+                break;
+
+            case 5:
+                saveToFile();
                 pressEnter();
                 break;
         }

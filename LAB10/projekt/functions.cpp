@@ -1,4 +1,5 @@
 #include "functions.h"
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <random>
@@ -64,9 +65,9 @@ void addEmployee(string name, string surname, long pesel, long phoneNumber, stri
     newEmployee->prev = nullptr;
 
     newEmployee->ID = generateRandomID();
-    while (peselExists) {
+    while (peselExists(pesel)) {
         cout << "This pesel is already in the list!\nEnter new pesel: ";
-        cin << pesel;
+        cin >> pesel;
     }
     newEmployee->pesel = pesel;
 
@@ -239,7 +240,8 @@ void displayMenu() {
     cout << "2. Search for employee" << endl;
     cout << "3. Remove employee" << endl;
     cout << "4. Show all employee" << endl;
-    cout << "5. Exit" << endl;
+    cout << "5. Save list to file" << endl;
+    cout << "6. Exit" << endl;
     cout << "Select option: ";
 }
 
@@ -340,3 +342,44 @@ bool listEmpty() {
         return false;
     }
 }
+
+void saveToFile() {
+    Employee* temp = head;
+    ofstream file("lista.txt");
+
+    if (!file) {
+        cout << "No such file..." << endl;
+        return;
+    }
+
+    int index = 0;
+    while (temp) {
+        file << '#' << index << ' ' << temp->ID << '\n';
+        file << "Name: " << temp->name << " Surname: " << temp->surname << " Pesel: " << temp->pesel << '\n';
+        file << "Phone number: " << temp->phoneNumber << " Position: " << temp->position << " Salary: " << temp->salary << '\n';
+        file << "Adress: " << '\n';
+        file << "Street: " << temp->adress.street << " House number: " << temp->adress.houseNumber << " City: " << temp->adress.city << " Postal code: " << temp->adress.postalCode << '\n';
+        file << "House phone number: " << temp->adress.phoneNumber << '\n';
+        
+        if (temp->next != nullptr) {
+            file << "Next: " << index+1 << '\n';
+        } else {
+            file << "Next: nullptr" << '\n';
+        }
+
+        if (temp->prev != nullptr) {
+            file << "Prev: " << index-1 << '\n';
+        } else {
+            file << "Prev: nullptr" << '\n';
+        }
+        file << "**********" << '\n';
+
+        if (temp->next != nullptr) {
+            index++;
+            temp = temp->next;
+        } else {
+            break;
+        }
+    }
+}
+
