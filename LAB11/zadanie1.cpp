@@ -9,8 +9,12 @@ int main() {
 
     ifstream file(fileName);
 
-    string fileContents;
+    if (!file) {
+        cout << "No such file..." << endl;
+        return 1;
+    }
 
+    string fileContents;
     file >> fileContents;
 
     cout << fileContents << endl;
