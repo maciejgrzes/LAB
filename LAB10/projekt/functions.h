@@ -53,4 +53,6 @@ void removeEmployee(long n);
 bool listEmpty();
 
 void saveToFile();
+
+void getListFromFile();
 #endif

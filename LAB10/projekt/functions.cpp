@@ -4,6 +4,7 @@
 #include <string>
 #include <random>
 #include <limits>
+#include <vector>
 using namespace std;
 
 Employee* head = nullptr;
@@ -354,12 +355,12 @@ void saveToFile() {
 
     int index = 0;
     while (temp) {
-        file << '#' << index << ' ' << temp->ID << '\n';
+        file << '#' << index << " ID: " << temp->ID << '\n';
         file << "Name: " << temp->name << " Surname: " << temp->surname << " Pesel: " << temp->pesel << '\n';
-        file << "Phone number: " << temp->phoneNumber << " Position: " << temp->position << " Salary: " << temp->salary << '\n';
+        file << "PhoneNumber: " << temp->phoneNumber << " Position: " << temp->position << " Salary: " << temp->salary << '\n';
         file << "Adress: " << '\n';
-        file << "Street: " << temp->adress.street << " House number: " << temp->adress.houseNumber << " City: " << temp->adress.city << " Postal code: " << temp->adress.postalCode << '\n';
-        file << "House phone number: " << temp->adress.phoneNumber << '\n';
+        file << "Street: " << temp->adress.street << " HouseNumber: " << temp->adress.houseNumber << " City: " << temp->adress.city << " Postal code: " << temp->adress.postalCode << '\n';
+        file << "HousePhoneNumber: " << temp->adress.phoneNumber << '\n';
         
         if (temp->next != nullptr) {
             file << "Next: " << index+1 << '\n';
@@ -378,8 +379,21 @@ void saveToFile() {
             index++;
             temp = temp->next;
         } else {
+            file.close();
             break;
         }
     }
+    file.close();
 }
 
+void getListFromFile() {
+    ifstream file("lista.txt");
+
+    vector<string> array;
+
+    if (!file) {
+        cout << "No such file..." << endl;
+        return;
+    }
+
+}

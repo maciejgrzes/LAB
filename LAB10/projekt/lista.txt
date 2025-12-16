@@ -1,0 +1,18 @@
+#0 ID: 3032
+Name: a Surname: a Pesel: 1
+PhoneNumber: 1 Position: a Salary: 1
+Adress: 
+Street: a HouseNumber: 1 City: a Postal code: 1
+HousePhoneNumber: 1
+Next: 1
+Prev: nullptr
+**********
+#1 ID: 2435
+Name: b Surname: b Pesel: 2
+PhoneNumber: 2 Position: b Salary: 2
+Adress: 
+Street: b HouseNumber: 2 City: b Postal code: 2
+HousePhoneNumber: 2
+Next: nullptr
+Prev: 0
+**********
