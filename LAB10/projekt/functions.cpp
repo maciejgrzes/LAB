@@ -1,11 +1,10 @@
 #include "functions.h"
-#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <random>
 #include <limits>
-#include <vector>
 using namespace std;
 
 Employee* head = nullptr;
@@ -391,57 +390,43 @@ void saveToFile() {
 
 void getListFromFile() {
     ifstream file("lista.txt");
-
-    vector<string> array = {""};
-
     if (!file) {
         cout << "No such file..." << endl;
         return;
     }
-    
-    char c;
 
-    while (file.get(c)) {
-        if (c == ' ') {
-            array.push_back("");
-            continue;
-        }
-        array.back() += c;
-    }
+    string line;
     
-    int countStar = count(array.begin(), array.end(), "**********");
-
     string name, surname, position, street, city;
     long pesel, phoneNumber;
     int salary, houseNumber, postalCode, adressPhoneNumber;
 
-    for (int x = 0; x < countStar; x++) {
-        for (int i = 0; i < array.size() - 1; i++) {
-            if (array[i] == "Name:") {
-                name = array[i+1];
-            } else if (array[i] == "Surname:") {
-                surname = array[i+1];
-            } else if (array[i] == "Pesel:") {
-                pesel = stol(array[i+1]);
-            } else if (array[i] == "PhoneNumber:") {
-                phoneNumber = stol(array[i+1]);
-            } else if (array[i] == "Position:") {
-                position = array[i+1];
-            } else if (array[i] == "Salary:") {
-                salary = stoi(array[i+1]);
-            } else if (array[i] == "Street:") {
-                street = array[i+1];
-            } else if (array[i] == "HouseNumber:") {
-                houseNumber = stoi(array[i+1]);
-            } else if (array[i] == "City:") {
-                city = array[i+1];
-            } else if (array[i] == "PostalCode:") {
-                postalCode = stoi(array[i+1]);
-            } else if (array[i] == "HousePhoneNumber:") {
-                adressPhoneNumber = stoi(array[i+1]);
-            }
+    while (getline(file, line)) {
+        if (line == "**********") {
+            addEmployee(name, surname, pesel, phoneNumber, position, salary, addAdress(street, houseNumber, postalCode, city, adressPhoneNumber));
+            
+            name = surname = position = street = city = "";
+            pesel = phoneNumber = salary = houseNumber = postalCode = adressPhoneNumber = 0;
+            continue;
         }
-
-        addEmployee(name, surname, pesel, phoneNumber, position, salary, addAdress(street, houseNumber, postalCode, city, adressPhoneNumber));
+        
+        istringstream iss(line);
+        string label;
+        if (line.rfind("Name:", 0) == 0) {
+            iss >> label >> name;
+            iss >> label >> surname;
+            iss >> label >> pesel;
+        } else if (line.rfind("PhoneNumber:", 0) == 0) {
+            iss >> label >> phoneNumber;
+            iss >> label >> position;
+            iss >> label >> salary;
+        } else if (line.rfind("Street:", 0) == 0) {
+            iss >> label >> street;
+            iss >> label >> houseNumber;
+            iss >> label >> city;
+            iss >> label >> postalCode;
+        } else if (line.rfind("HousePhoneNumber:", 0) == 0) {
+            iss >> label >> adressPhoneNumber;
+        }
     }
 }

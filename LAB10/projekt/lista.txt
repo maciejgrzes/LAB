@@ -1,18 +1,18 @@
 #0 ID: 3032
-Name: a Surname: a Pesel: 1
-PhoneNumber: 1 Position: a Salary: 1
+Name: john Surname: pork Pesel: 782549
+PhoneNumber: 602467123 Position: hr Salary: 20000
 Adress: 
-Street: a HouseNumber: 1 City: a PostalCode: 1
-HousePhoneNumber: 1
+Street: main HouseNumber: 12 City: newyork PostalCode: 51256
+HousePhoneNumber: 602467123
 Next: 1
 Prev: nullptr
 **********
 #1 ID: 2435
-Name: b Surname: b Pesel: 2
-PhoneNumber: 2 Position: b Salary: 2
+Name: tom Surname: nottin Pesel: 245698
+PhoneNumber: 123456123 Position: hr Salary: 30000
 Adress: 
-Street: b HouseNumber: 2 City: b PostalCode: 2
-HousePhoneNumber: 2
+Street: good HouseNumber: 123 City: krakow PostalCode: 61235
+HousePhoneNumber: 123456123
 Next: nullptr
 Prev: 0
 **********
