@@ -1,4 +1,5 @@
 #include "functions.h"
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -59,6 +60,7 @@ void addEmployee(string name, string surname, long pesel, long phoneNumber, stri
     newEmployee->name = name;
     newEmployee->surname = surname;
     newEmployee->adress = *adress;
+    delete adress;
     newEmployee->phoneNumber = phoneNumber;
     newEmployee->position = position;
     newEmployee->salary = salary;
@@ -242,7 +244,8 @@ void displayMenu() {
     cout << "3. Remove employee" << endl;
     cout << "4. Show all employee" << endl;
     cout << "5. Save list to file" << endl;
-    cout << "6. Exit" << endl;
+    cout << "6. Get list from file" << endl;
+    cout << "7. Exit" << endl;
     cout << "Select option: ";
 }
 
@@ -359,7 +362,7 @@ void saveToFile() {
         file << "Name: " << temp->name << " Surname: " << temp->surname << " Pesel: " << temp->pesel << '\n';
         file << "PhoneNumber: " << temp->phoneNumber << " Position: " << temp->position << " Salary: " << temp->salary << '\n';
         file << "Adress: " << '\n';
-        file << "Street: " << temp->adress.street << " HouseNumber: " << temp->adress.houseNumber << " City: " << temp->adress.city << " Postal code: " << temp->adress.postalCode << '\n';
+        file << "Street: " << temp->adress.street << " HouseNumber: " << temp->adress.houseNumber << " City: " << temp->adress.city << " PostalCode: " << temp->adress.postalCode << '\n';
         file << "HousePhoneNumber: " << temp->adress.phoneNumber << '\n';
         
         if (temp->next != nullptr) {
@@ -389,11 +392,56 @@ void saveToFile() {
 void getListFromFile() {
     ifstream file("lista.txt");
 
-    vector<string> array;
+    vector<string> array = {""};
 
     if (!file) {
         cout << "No such file..." << endl;
         return;
     }
+    
+    char c;
 
+    while (file.get(c)) {
+        if (c == ' ') {
+            array.push_back("");
+            continue;
+        }
+        array.back() += c;
+    }
+    
+    int countStar = count(array.begin(), array.end(), "**********");
+
+    string name, surname, position, street, city;
+    long pesel, phoneNumber;
+    int salary, houseNumber, postalCode, adressPhoneNumber;
+
+    for (int x = 0; x < countStar; x++) {
+        for (int i = 0; i < array.size() - 1; i++) {
+            if (array[i] == "Name:") {
+                name = array[i+1];
+            } else if (array[i] == "Surname:") {
+                surname = array[i+1];
+            } else if (array[i] == "Pesel:") {
+                pesel = stol(array[i+1]);
+            } else if (array[i] == "PhoneNumber:") {
+                phoneNumber = stol(array[i+1]);
+            } else if (array[i] == "Position:") {
+                position = array[i+1];
+            } else if (array[i] == "Salary:") {
+                salary = stoi(array[i+1]);
+            } else if (array[i] == "Street:") {
+                street = array[i+1];
+            } else if (array[i] == "HouseNumber:") {
+                houseNumber = stoi(array[i+1]);
+            } else if (array[i] == "City:") {
+                city = array[i+1];
+            } else if (array[i] == "PostalCode:") {
+                postalCode = stoi(array[i+1]);
+            } else if (array[i] == "HousePhoneNumber:") {
+                adressPhoneNumber = stoi(array[i+1]);
+            }
+        }
+
+        addEmployee(name, surname, pesel, phoneNumber, position, salary, addAdress(street, houseNumber, postalCode, city, adressPhoneNumber));
+    }
 }

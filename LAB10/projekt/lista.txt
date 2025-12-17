@@ -2,7 +2,7 @@
 Name: a Surname: a Pesel: 1
 PhoneNumber: 1 Position: a Salary: 1
 Adress: 
-Street: a HouseNumber: 1 City: a Postal code: 1
+Street: a HouseNumber: 1 City: a PostalCode: 1
 HousePhoneNumber: 1
 Next: 1
 Prev: nullptr
@@ -11,7 +11,7 @@ Prev: nullptr
 Name: b Surname: b Pesel: 2
 PhoneNumber: 2 Position: b Salary: 2
 Adress: 
-Street: b HouseNumber: 2 City: b Postal code: 2
+Street: b HouseNumber: 2 City: b PostalCode: 2
 HousePhoneNumber: 2
 Next: nullptr
 Prev: 0
