@@ -32,7 +32,7 @@ bool idExists(long value);
 
 long generateRandomID();
 
-void addEmployee(string name, string surname, long pesel, long phoneNumber, string position, int salary, Adress* adress);
+void addEmployee(long id, string name, string surname, long pesel, long phoneNumber, string position, int salary, Adress* adress);
 
 void displayEmployees();
 
@@ -54,5 +54,5 @@ bool listEmpty();
 
 void saveToFile();
 
-void getListFromFile();
+void getListFromFile(string fileName);
 #endif

@@ -54,7 +54,7 @@ bool peselExists(long pesel) {
     return false;
 }
 
-void addEmployee(string name, string surname, long pesel, long phoneNumber, string position, int salary, Adress* adress) {
+void addEmployee(long id, string name, string surname, long pesel, long phoneNumber, string position, int salary, Adress* adress) {
     Employee* newEmployee = new Employee();
     newEmployee->name = name;
     newEmployee->surname = surname;
@@ -66,7 +66,9 @@ void addEmployee(string name, string surname, long pesel, long phoneNumber, stri
     newEmployee->next = nullptr;
     newEmployee->prev = nullptr;
 
-    newEmployee->ID = generateRandomID();
+    if (id == 0) newEmployee->ID = generateRandomID();
+    else newEmployee->ID = id;
+
     while (peselExists(pesel)) {
         cout << "This pesel is already in the list!\nEnter new pesel: ";
         cin >> pesel;
@@ -357,7 +359,8 @@ void saveToFile() {
 
     int index = 0;
     while (temp) {
-        file << '#' << index << " ID: " << temp->ID << '\n';
+        file << '#' << index << '\n';
+        file << " ID: " << temp->ID << '\n';
         file << "Name: " << temp->name << " Surname: " << temp->surname << " Pesel: " << temp->pesel << '\n';
         file << "PhoneNumber: " << temp->phoneNumber << " Position: " << temp->position << " Salary: " << temp->salary << '\n';
         file << "Adress: " << '\n';
@@ -388,8 +391,8 @@ void saveToFile() {
     file.close();
 }
 
-void getListFromFile() {
-    ifstream file("lista.txt");
+void getListFromFile(string fileName) {
+    ifstream file(fileName);
     if (!file) {
         cout << "No such file..." << endl;
         return;
@@ -398,15 +401,16 @@ void getListFromFile() {
     string line;
     
     string name, surname, position, street, city;
-    long pesel, phoneNumber;
+    long pesel, phoneNumber, id;
     int salary, houseNumber, postalCode, adressPhoneNumber;
+
 
     while (getline(file, line)) {
         if (line == "**********") {
-            addEmployee(name, surname, pesel, phoneNumber, position, salary, addAdress(street, houseNumber, postalCode, city, adressPhoneNumber));
+            addEmployee(id, name, surname, pesel, phoneNumber, position, salary, addAdress(street, houseNumber, postalCode, city, adressPhoneNumber));
             
             name = surname = position = street = city = "";
-            pesel = phoneNumber = salary = houseNumber = postalCode = adressPhoneNumber = 0;
+            pesel = phoneNumber = salary = houseNumber = postalCode = adressPhoneNumber, id = 0;
             continue;
         }
         
@@ -427,6 +431,8 @@ void getListFromFile() {
             iss >> label >> postalCode;
         } else if (line.rfind("HousePhoneNumber:", 0) == 0) {
             iss >> label >> adressPhoneNumber;
+        } else if (line.rfind("ID:", 0) == 0) {
+            iss >> label >> id;
         }
     }
 }

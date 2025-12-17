@@ -48,7 +48,7 @@ int main() {
                 cout << "Salary: (int)";
                 cin >> salary;
 
-                addEmployee(name, surname, pesel, phoneNumber, position, salary, newAdress);
+                addEmployee(0, name, surname, pesel, phoneNumber, position, salary, newAdress);
                 pressEnter();
                 break;
             }
@@ -130,12 +130,16 @@ int main() {
                 pressEnter();
                 break;
 
-            case 6:
+            case 6: {
                 cout << "\033[2J\033[1;1H";
-                getListFromFile();
+                string fileName;
+                cout << "Enter name of file: ";
+                cin >> fileName;
+                getListFromFile(fileName);
                 displayEmployees();
                 pressEnter();
                 break;
+            }
         }
     }
 

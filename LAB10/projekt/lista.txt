@@ -1,4 +1,5 @@
-#0 ID: 3032
+#0 
+ID: 3032
 Name: john Surname: pork Pesel: 782549
 PhoneNumber: 602467123 Position: hr Salary: 20000
 Adress: 
@@ -7,7 +8,8 @@ HousePhoneNumber: 602467123
 Next: 1
 Prev: nullptr
 **********
-#1 ID: 2435
+#1 
+ID: 2435
 Name: tom Surname: nottin Pesel: 245698
 PhoneNumber: 123456123 Position: hr Salary: 30000
 Adress: 
