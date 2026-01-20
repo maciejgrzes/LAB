@@ -5,6 +5,9 @@
 const int width = 1200;
 const int height = 900;
 
+const int centerX = 600;
+const int centerY = 450;
+
 int scoreL = 0;
 int scoreR = 0;
 
@@ -29,8 +32,8 @@ int main() {
 
     int valX = velGenX(gen);
     Circle circle;
-    circle.x = 600;
-    circle.y = 450;
+    circle.x = centerX;
+    circle.y = centerY;
     circle.Yvelocity = 1;
     if (valX == 0) {
         circle.Xvelocity = 5;
@@ -42,13 +45,13 @@ int main() {
 
     Rectangle left;
     left.x = 50;
-    left.y = 450;
+    left.y = centerY;
     left.width = 10;
     left.height = 100;
     
     Rectangle right;
     right.x = width - 50 - 10;
-    right.y = 450;
+    right.y = centerY;
     right.width = 10;
     right.height = 100;
 
@@ -71,16 +74,28 @@ int main() {
         }
         // LEFT
         else if (CheckCollisionCircleLine({circle.x, circle.y}, circle.radius, {0, 0}, {0, height})) {
+            int valX = velGenX(gen);
+            if (valX == 0) {
+                circle.Xvelocity = 5;
+            } else {
+                circle.Xvelocity = -5;
+            }
             circle.Xvelocity = -1 * circle.Xvelocity;
-            circle.x = 600;
-            circle.y = 450;
+            circle.x = centerX;
+            circle.y = centerY;
             scoreR++;
         }
         // RIGHT
         else if (CheckCollisionCircleLine({circle.x, circle.y}, circle.radius, {width, 0}, {width, height})) {
+            int valX = velGenX(gen);
+            if (valX == 0) {
+                circle.Xvelocity = 5;
+            } else {
+                circle.Xvelocity = -5;
+            }
             circle.Xvelocity = -1 * circle.Xvelocity;
-            circle.x = 600;
-            circle.y = 450;
+            circle.x = centerX;
+            circle.y = centerY;
             scoreL++;
         }
 
