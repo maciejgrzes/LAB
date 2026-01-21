@@ -1,10 +1,23 @@
 #include <iostream>
+#include <optional>
 #include <vector>
 #include <string>
 using namespace std;
 #ifndef HEADER_INCLUDE
 
 #define HEADER_INCLUDE
+
+enum class Unit { Kelvin, Celsius, Fahrenheit };
+
+struct Entry {
+    double before;
+    Unit unitBefore;
+    double after;
+    Unit unitAfter;
+};
+
+
+string unitToString(Unit u);
 
 bool check(double temp, char unit);
 
@@ -32,7 +45,7 @@ bool outOfRange(double temp);
 
 void pressEnter();
 
-void printVector(vector<string> data);
+void printVector(const vector<Entry>& history, optional<Unit> filter = nullopt);
 
 void showHistoryMenu();
 
@@ -42,8 +55,8 @@ char inputScale();
 
 char inputScaleToCalculate();
 
-void calculateAndReplace(vector<string>& vec);
+void calculateAndReplace(vector<Entry>& history);
 
-void generateRandomHistory(vector<string>& history, vector<string>& historyC, vector<string>& historyF, vector<string>& historyK);
+void generateRandomHistory(vector<Entry>& history);
 
 #endif

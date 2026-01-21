@@ -1,19 +1,15 @@
-#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <string>
 #include "header.h"
 using namespace std;
 
 
 int main() {
-    vector<string> history;
-    vector<string> historyC;
-    vector<string> historyF;
-    vector<string> historyK;
+    vector<Entry> history;
     double tempAfter;
     int option;
     double temp;
+    Entry entry;
     
     while(true) {
         // Universal 'command' to clear the terminal since different operating systems use different commands
@@ -41,9 +37,10 @@ int main() {
 
                 tempAfter = FtoC(temp);
 
+                entry = {temp, Unit::Fahrenheit, tempAfter, Unit::Celsius};
+
                 if (history.size() < 100) {
-                    history.push_back(to_string(temp) + "°F -> " + to_string(tempAfter) + "°C");
-                    historyF.push_back(to_string(temp) + "°F -> " + to_string(tempAfter) + "°C");
+                    history.push_back(entry);
                 } else {
                     cout << "Brak miejsca do zapisania w historii!" << endl;
                 }
@@ -65,9 +62,10 @@ int main() {
 
                 tempAfter = FtoK(temp);
                 
+                entry = {temp, Unit::Fahrenheit, tempAfter, Unit::Kelvin};
+
                 if (history.size() < 100) {
-                    history.push_back(to_string(temp) + "°F -> " + to_string(tempAfter) + "K");
-                    historyF.push_back(to_string(temp) + "°F -> " + to_string(tempAfter) + "K");
+                    history.push_back(entry);
                 } else {
                     cout << "Brak miejsca do zapisania w historii!" << endl;
                 }
@@ -89,9 +87,10 @@ int main() {
                 
                 tempAfter = CtoF(temp);
 
+                entry = {temp, Unit::Celsius, tempAfter, Unit::Fahrenheit};
+
                 if (history.size() < 100) {
-                    history.push_back(to_string(temp) + "°C -> " + to_string(tempAfter) + "°F");
-                    historyC.push_back(to_string(temp) + "°C -> " + to_string(tempAfter) + "°F");
+                    history.push_back(entry);
                 } else {
                     cout << "Brak miejsca do zapisania w historii!" << endl;
                 }
@@ -113,9 +112,10 @@ int main() {
                 
                 tempAfter = CtoK(temp);
 
+                entry = {temp, Unit::Celsius, tempAfter, Unit::Kelvin};
+
                 if (history.size() < 100) {
-                    history.push_back(to_string(temp) + "°C -> " + to_string(tempAfter) + "K");
-                    historyC.push_back(to_string(temp) + "°C -> " + to_string(tempAfter) + "K");
+                    history.push_back(entry);
                 } else {
                     cout << "Brak miejsca do zapisania w historii!" << endl;
                 }
@@ -137,9 +137,10 @@ int main() {
                 
                 tempAfter = KtoC(temp);
 
+                entry = {temp, Unit::Kelvin, tempAfter, Unit::Celsius};
+
                 if (history.size() < 100) {
-                    history.push_back(to_string(temp) + "K -> " + to_string(tempAfter) + "°C");
-                    historyK.push_back(to_string(temp) + "K -> " + to_string(tempAfter) + "°C");
+                    history.push_back(entry);
                 } else {
                     cout << "Brak miejsca do zapisania w historii!" << endl;
                 }
@@ -161,9 +162,10 @@ int main() {
                 
                 tempAfter = KtoF(temp);
 
+                entry = {temp, Unit::Kelvin, tempAfter, Unit::Fahrenheit};
+
                 if (history.size() < 100) {
-                    history.push_back(to_string(temp) + "K -> " + to_string(tempAfter) + "°F");
-                    historyK.push_back(to_string(temp) + "K -> " + to_string(tempAfter) + "°F");
+                    history.push_back(entry);
                 } else {
                     cout << "Brak miejsca do zapisania w historii!" << endl;
                 }
@@ -186,19 +188,19 @@ int main() {
                 switch (historyOption) {
                     // Print only C -> something
                     case 1:
-                        printVector(historyC);
+                        printVector(history, Unit::Celsius);
                         pressEnter();
                         break;
                     
                     // Print only F -> something
                     case 2:
-                        printVector(historyF);
+                        printVector(history, Unit::Fahrenheit);
                         pressEnter();
                         break;
                     
                     // Print only K -> something
                     case 3:
-                        printVector(historyK);
+                        printVector(history, Unit::Kelvin);
                         pressEnter();
                         break;
                     
@@ -222,9 +224,6 @@ int main() {
                             // Clear the entire history
                             case 1:
                                 history.clear();
-                                historyC.clear();
-                                historyF.clear();
-                                historyK.clear();
 
                                 break;
                             
@@ -234,18 +233,15 @@ int main() {
 
                                 int indexToRemove;
                                 cin >> indexToRemove;
-                                
-                                string target = history[indexToRemove--];
 
-                                auto inC = find(historyC.begin(), historyC.end(), target);
-                                auto inF = find(historyF.begin(), historyF.end(), target);
-                                auto inK = find(historyK.begin(), historyK.end(), target);
-                                
-                                if (inC != historyC.end()) historyC.erase(inC);
-                                if (inF != historyF.end()) historyF.erase(inF);
-                                if (inK != historyK.end()) historyK.erase(inK);
+                                // user counts from 1
+                                indexToRemove--;
 
-                                history.erase(history.begin() + (indexToRemove));
+                                if (indexToRemove >= 0 && indexToRemove < history.size()) {
+                                    history.erase(history.begin() + indexToRemove);
+                                } else {
+                                    cout << "Nieprawidłowy index!\n";
+                                }
                                 
                                 break;
                             }
@@ -257,7 +253,7 @@ int main() {
                                 break;
                             // Randomly fill the history
                             case 4:
-                                generateRandomHistory(history, historyC, historyF, historyK);
+                                generateRandomHistory(history);
 
                                 break;
 

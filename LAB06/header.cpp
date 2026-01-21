@@ -1,9 +1,20 @@
 #include "header.h"
+#include <optional>
 #include <iostream>
 #include <limits>
 #include <random>
 #include <string>
 using namespace std;
+
+// Convert Unit enum to string 
+string unitToString(Unit u) {
+    switch (u) {
+        case Unit::Kelvin:     return "K";
+        case Unit::Celsius:    return "°C";
+        case Unit::Fahrenheit: return "°F";
+    }
+    return "";
+}
 
 // Check if the inputed temperature is not below absolute 0
 bool check(double temp, char unit) {
@@ -135,12 +146,14 @@ void pressEnter() {
     cin.get();
 }
 
-void printVector(vector<string> data) {
-    if (data.empty()) {
-        cout << "Nie ma historii!" << endl;
-    }
-    for (int i = 0; i < data.size(); i++) {
-        cout << i+1 << ": " << data[i] << endl;
+
+void printVector(const vector<Entry>& history, optional<Unit> filter) {
+    for (const auto& e : history) {
+        if (filter && e.unitBefore != *filter)  // skip if filter is set and doesn't match
+            continue;
+
+        cout << e.before << " " << unitToString(e.unitBefore)
+            << " -> " << e.after << " " << unitToString(e.unitAfter) << endl;
     }
 }
 
@@ -198,192 +211,176 @@ char inputScaleToCalculate(char scale) {
     return secondScale;
 }
 
-// Prosedure to replace a history entry with user input
-void calculateAndReplace(vector<string>& vec) {
+// Procedure to replace a history entry with user input
+void calculateAndReplace(vector<Entry>& history) {
     int indexToEdit;
-    
+
     do {
         cout << "Który index zmienić? ";
         cin >> indexToEdit;
-    } while (indexToEdit < 0 || indexToEdit > vec.size());
+    } while (indexToEdit < 1 || indexToEdit > history.size());
+
+    Entry& entry = history[indexToEdit - 1]; // reference to the entry
 
     char scale = inputScale();
- 
-    double newTemp;
-    double newTempAfter;
+    Unit unitBefore;
 
     if (scale == 'C') {
-        newTemp = inputC();
-
-        if (outOfRange(newTemp)) {
-            pressEnter();
-            return;
-        }
-
-        char newScale = inputScaleToCalculate(scale);
-
-        if (newScale == 'F') {
-            newTempAfter = CtoF(newTemp);
-            cout << newTemp << "°C -> " << newTempAfter << "°F" << endl;
-            vec[indexToEdit-1] = to_string(newTemp) + "°C -> " + to_string(newTempAfter) + "°F";
-
-        } else if (newScale == 'K') {
-            newTempAfter = CtoK(newTemp);
-            cout << newTemp << "°C -> " << newTempAfter << "K" << endl;
-            vec[indexToEdit-1] = to_string(newTemp) + "°C -> " + to_string(newTempAfter) + "K";
-        }
-
+        unitBefore = Unit::Celsius;
     } else if (scale == 'F') {
-        newTemp = inputF();
-
-        if (outOfRange(newTemp)) {
-            pressEnter();
-            return;
-        }
-
-        char newScale = inputScaleToCalculate(scale);
-
-        if (newScale == 'C') {
-            newTempAfter = FtoC(newTemp);
-            cout << newTemp << "°F -> " << newTempAfter << "°C" << endl;
-            vec[indexToEdit-1] = to_string(newTemp) + "°F -> " + to_string(newTempAfter) + "°C";
-
-        } else if (newScale == 'K') {
-            newTempAfter = FtoK(newTemp);
-            cout << newTemp << "°F -> " << newTempAfter << "K" << endl;
-            vec[indexToEdit-1] = to_string(newTemp) + "°F -> " + to_string(newTempAfter) + "K";
-        }
-
-    } else if (scale == 'K') {
-        newTemp = inputK();
-
-        if (outOfRange(newTemp)) {
-            pressEnter();
-            return;
-        }
-
-        char newScale = inputScaleToCalculate(scale);
-
-        if (newScale == 'F') {
-            newTempAfter = CtoF(newTemp);
-            cout << newTemp << "K -> " << newTempAfter << "°F" << endl;
-            vec[indexToEdit-1] = to_string(newTemp) + "K -> " + to_string(newTempAfter) + "°F";
-
-        } else if (newScale == 'C') {
-            newTempAfter = CtoK(newTemp);
-            cout << newTemp << "K -> " << newTempAfter << "°C" << endl;
-            vec[indexToEdit-1] = to_string(newTemp) + "K -> " + to_string(newTempAfter) + "°C";
-        }
-
+        unitBefore = Unit::Fahrenheit;
+    } else {
+        unitBefore = Unit::Kelvin;
     }
+
+    double newTemp;
+    if (unitBefore == Unit::Celsius) {
+        newTemp = inputC();
+    } else if (unitBefore == Unit::Fahrenheit) {
+        newTemp = inputF();
+    } else {
+        newTemp = inputK();
+    }
+
+    if (outOfRange(newTemp)) {
+        pressEnter();
+        return;
+    }
+
+    char newScale = inputScaleToCalculate(scale);
+    Unit unitAfter;
+    if (newScale == 'C') {
+        unitAfter = Unit::Celsius;
+    } else if (newScale == 'F') {
+        unitAfter = Unit::Fahrenheit;
+    } else {
+        unitAfter = Unit::Kelvin;
+    }
+
+    // Perform conversion
+    double newTempAfter;
+    if (unitBefore == Unit::Celsius) {
+        if (unitAfter == Unit::Fahrenheit) {
+            newTempAfter = CtoF(newTemp);
+        } else { // Unit::Kelvin
+            newTempAfter = CtoK(newTemp);
+        }
+    } else if (unitBefore == Unit::Fahrenheit) {
+        if (unitAfter == Unit::Celsius) {
+            newTempAfter = FtoC(newTemp);
+        } else { // Unit::Kelvin
+            newTempAfter = FtoK(newTemp);
+        }
+    } else {
+        if (unitAfter == Unit::Celsius) {
+            newTempAfter = KtoC(newTemp);
+        } else { // Unit::Fahrenheit
+            newTempAfter = KtoF(newTemp);
+        } 
+    }
+
+    entry.before = newTemp;
+    entry.unitBefore = unitBefore;
+    entry.after = newTempAfter;
+    entry.unitAfter = unitAfter;
+
+    cout << entry.before << unitToString(entry.unitBefore)
+         << " -> " << entry.after << unitToString(entry.unitAfter) << endl;
 }
 
 // Generating random numbers to put into history
-void generateRandomHistory(vector<string>& history, vector<string>& historyC, vector<string>& historyF, vector<string>& historyK) {
+void generateRandomHistory(vector<Entry>& history) {
     random_device rd;
     mt19937 gen(rd());
 
-    uniform_int_distribution<int> chars(0,2);
-    uniform_int_distribution<int> valuesK(0, 1000);
+    uniform_int_distribution<int> chars(0, 2);        // for unit selection
     uniform_int_distribution<int> valuesC(-274, 727);
     uniform_int_distribution<int> valuesF(-460, 540);
+    uniform_int_distribution<int> valuesK(0, 1000);
 
     char letters[] = {'C', 'F', 'K'};
 
-    int firstLetter = chars(gen);
-    int secondLetter;
-
-    do {
-        secondLetter = chars(gen);
-    } while (secondLetter == firstLetter);
-
-    double temp = valuesC(gen);
-
     int count;
-    
+
     while (true) {
         cout << "Ile losowych liczb wpisać? ";
         cin >> count;
 
         if (cin.fail()) {
             cin.clear();
-
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
             cout << "Wpisz liczbe!! ";
         } else {
             break;
         }
     }
 
-    char option;
-
     if (count + history.size() > 100) {
-        cout << "Zamało miejsca! Chcesz wypełnić historie " << count - ( ( count + history.size() ) - 100 ) << " elementami? (Y/n) ";
+        char option;
+        int allowed = 100 - history.size();
+        cout << "Zamało miejsca! Chcesz wypełnić historie " << allowed << " elementami? (Y/n) ";
         cin >> option;
-
         if (option == 'Y' || option == 'y') {
-            count = count - ( ( count + history.size() ) - 100 );
+            count = allowed;
         } else {
             return;
         }
     }
 
+    // Generate random entries
     for (int i = 0; i < count; i++) {
         int firstIndex = chars(gen);
         int secondIndex;
-
         do {
-            secondLetter = chars(gen);
-        } while (secondLetter == firstLetter);
-
-        double temp = valuesC(gen);
+            secondIndex = chars(gen);
+        } while (secondIndex == firstIndex);
 
         char firstLetter = letters[firstIndex];
         char secondLetter = letters[secondIndex];
 
-        switch (firstLetter) {
-            case 'C': {
-                if (secondLetter == 'F') {
-                    double newTemp = CtoF(temp);
-                    history.push_back(to_string(temp) + "°C -> " + to_string(newTemp) + "°F");
-                    historyC.push_back(to_string(temp) + "°C -> " + to_string(newTemp) + "°F");
-                } else {
-                    double newTemp = CtoK(temp);
-                    history.push_back(to_string(temp) + "°C -> " + to_string(newTemp) + "K");
-                    historyC.push_back(to_string(temp) + "°C -> " + to_string(newTemp) + "K");
-                }
+        double temp;
 
-                break; 
-            }
-            
-            case 'F': {
-                if (secondLetter == 'C') {
-                    double newTemp = FtoC(temp);
-                    history.push_back(to_string(temp) + "°F -> " + to_string(newTemp) + "°C");
-                    historyF.push_back(to_string(temp) + "°F -> " + to_string(newTemp) + "°C");
-                } else {
-                    double newTemp = FtoK(temp);
-                    history.push_back(to_string(temp) + "°F -> " + to_string(newTemp) + "K");
-                    historyF.push_back(to_string(temp) + "°F -> " + to_string(newTemp) + "K");
-                }
-
-                break; 
-            }
-
-            case 'K': {
-                if (secondLetter == 'F') {
-                    double newTemp = KtoF(temp);
-                    history.push_back(to_string(temp) + "K -> " + to_string(newTemp) + "°F");
-                    historyK.push_back(to_string(temp) + "K -> " + to_string(newTemp) + "°F");
-                } else {
-                    double newTemp = KtoC(temp);
-                    history.push_back(to_string(temp) + "K -> " + to_string(newTemp) + "°C");
-                    historyK.push_back(to_string(temp) + "K -> " + to_string(newTemp) + "°C");
-                }
-
-                break; 
-            }      
+        if (firstLetter == 'C') {
+            temp = valuesC(gen);
+        } else if (firstLetter == 'F') {
+            temp = valuesF(gen);
+        } else { // 'K'
+            temp = valuesK(gen);
         }
+
+        Entry entry;
+        // Determine unitBefore
+        if (firstLetter == 'C') {
+            entry.unitBefore = Unit::Celsius;
+        } else if (firstLetter == 'F') {
+            entry.unitBefore = Unit::Fahrenheit;
+        } else {
+            entry.unitBefore = Unit::Kelvin;
+        }
+
+        // Determine unitAfter
+        if (secondLetter == 'C') {
+            entry.unitAfter = Unit::Celsius;
+        } else if (secondLetter == 'F') {
+            entry.unitAfter = Unit::Fahrenheit;
+        } else {
+            entry.unitAfter = Unit::Kelvin;
+        }
+
+        entry.before = temp;
+
+        // Perform conversion
+        if (entry.unitBefore == Unit::Celsius) {
+            if (entry.unitAfter == Unit::Fahrenheit) entry.after = CtoF(temp);
+            else entry.after = CtoK(temp);
+        } else if (entry.unitBefore == Unit::Fahrenheit) {
+            if (entry.unitAfter == Unit::Celsius) entry.after = FtoC(temp);
+            else entry.after = FtoK(temp);
+        } else { // Unit::Kelvin
+            if (entry.unitAfter == Unit::Celsius) entry.after = KtoC(temp);
+            else entry.after = KtoF(temp);
+        }
+
+        history.push_back(entry);
     }
 }
