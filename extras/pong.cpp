@@ -13,13 +13,25 @@ int scoreR = 0;
 
 struct Circle {
     Vector2 pos;
-    Vector2 spd;
-    Vector2 dir;
+    Vector2 vel;
 
     double radius;
 
     Color color;
 };
+
+
+void resetBall(Circle &circle) {
+    circle.pos = { centerX, centerY };
+
+    float angle = GetRandomValue(-45, 45) * DEG2RAD;
+    float speed = 6;
+    int dir = (GetRandomValue(0, 1) == 0) ? -1 : 1;
+
+    circle.vel.x = cos(angle) * speed * dir;
+    circle.vel.y = sin(angle) * speed;
+}
+
 
 int main() {
     InitWindow(width, height, "Pong!");
@@ -28,22 +40,21 @@ int main() {
     Circle circle;
     circle.pos.x = centerX;
     circle.pos.y = centerY;
-    circle.spd = {5, 1};
-    circle.dir = {1, 1};
+    circle.vel = {5, 1};
     circle.radius = 10;
     circle.color = WHITE;
 
     Rectangle left;
-    left.x = 50;
-    left.y = centerY;
     left.width = 10;
     left.height = 100;
+    left.x = 50;
+    left.y = centerY - left.height / 2;
     
     Rectangle right;
-    right.x = width - 50 - 10;
-    right.y = centerY;
     right.width = 10;
     right.height = 100;
+    right.x = width - 50 - 10;
+    right.y = centerY - right.height / 2;
 
     double paddleSpeed = 5;
 
@@ -51,64 +62,58 @@ int main() {
         BeginDrawing();
         
         ClearBackground(BLACK);
-        circle.pos.y += circle.dir.y * circle.spd.y;
-        circle.pos.x += circle.dir.x * circle.spd.x;
+        circle.pos.y += circle.vel.y;
+        circle.pos.x += circle.vel.x;
 
-        // TOP
-        if (CheckCollisionCircleLine(circle.pos, circle.radius, {0, 0}, {width, 0})) {
-            circle.dir.y = -1 * circle.dir.y;
-        } 
-        // BOTTOM
-        else if (CheckCollisionCircleLine(circle.pos, circle.radius, {0, height}, {width, height})) {
-            circle.dir.y = -1 * circle.dir.y;
-        }
-        // LEFT
-        else if (CheckCollisionCircleLine(circle.pos, circle.radius, {0, 0}, {0, height})) {
-            circle.dir.x = -1 * circle.dir.x;
-            circle.pos.x = centerX;
-            circle.pos.y = centerY;
-            scoreR++;
-        }
-        // RIGHT
-        else if (CheckCollisionCircleLine(circle.pos, circle.radius, {width, 0}, {width, height})) {
-            circle.dir.x = -1 * circle.dir.x;
-            circle.pos.x = centerX;
-            circle.pos.y = centerY;
-            scoreL++;
-        }
+        if (circle.pos.y - circle.radius <= 0 || circle.pos.y + circle.radius >= height)
+            circle.vel.y *= -1;
+
+        if (circle.pos.x < 0) { scoreR++; resetBall(circle); }
+        if (circle.pos.x > width) { scoreL++; resetBall(circle); }
 
         if(CheckCollisionCircleRec(circle.pos, circle.radius, left)) {
-            if (circle.dir.x < 0) {
-                circle.dir.x -= 0.5;
+            if (circle.vel.x < 0) {
+                circle.vel.x -= 0.5;
             } else {
-                circle.dir.x += 0.5;
+                circle.vel.x += 0.5;
             }
-            circle.dir.x = -1 * circle.dir.x;
+            circle.vel.x *= -1;
+            circle.pos.x = left.x + left.width + circle.radius;
         
-            float angle = ( circle.pos.y - ( left.y + (left.height/2) ) ) / (left.height/2);
+            float relative = (circle.pos.y - (left.y + left.height/2)) / (left.height/2);
+            float maxAngle = 60 * DEG2RAD;
+            float angle = relative * maxAngle;
 
-            circle.dir.x = cos(angle) * circle.spd.x;
-            circle.dir.y = sin(angle) * circle.spd.y;
+            float speed = sqrt(circle.vel.x * circle.vel.x + circle.vel.y * circle.vel.y);
+
+            circle.vel.x = cos(angle) * speed;
+            circle.vel.y = sin(angle) * speed;
         }
 
         if (CheckCollisionCircleRec(circle.pos, circle.radius, right)) {
-            if (circle.dir.x < 0) {
-                circle.dir.x -= 0.5;
+            if (circle.vel.x < 0) {
+                circle.vel.x -= 0.5;
             } else {
-                circle.dir.x += 0.5;
+                circle.vel.x += 0.5;
             }
-            circle.dir.x = -1 * circle.dir.x;
-            
-            float angle = ( circle.pos.y - ( right.y + (right.height/2) ) ) / (right.height/2);
+            circle.vel.x *= -1;
+            circle.pos.x = right.x - circle.radius;
         
-            circle.dir.x = cos(angle) * circle.spd.x;
-            circle.dir.y = sin(angle) * circle.spd.y;
+            float relative = (circle.pos.y - (right.y + right.height/2)) / (right.height/2);
+            float maxAngle = 60 * DEG2RAD;
+            float angle = relative * maxAngle;
+
+            float speed = sqrt(circle.vel.x * circle.vel.x + circle.vel.y * circle.vel.y);
+
+            circle.vel.x = -cos(angle) * speed;
+            circle.vel.y = sin(angle) * speed;
         }
 
-        if (IsKeyDown(KEY_W) && left.y != 0) left.y -= paddleSpeed;
-        if (IsKeyDown(KEY_S) && left.y != height - left.height) left.y += paddleSpeed;
-        if (IsKeyDown(KEY_UP) && right.y != 0) right.y -= paddleSpeed;
-        if (IsKeyDown(KEY_DOWN) && right.y != height - right.height) right.y += paddleSpeed;
+        if (IsKeyDown(KEY_W) && left.y > 0) left.y -= paddleSpeed;
+        if (IsKeyDown(KEY_S) && left.y + left.height < height) left.y += paddleSpeed;
+
+        if (IsKeyDown(KEY_UP) && right.y > 0) right.y -= paddleSpeed;
+        if (IsKeyDown(KEY_DOWN) && right.y + right.height < height) right.y += paddleSpeed;
 
 
         std::string scoreLStr = "Score: " + std::to_string(scoreL);
