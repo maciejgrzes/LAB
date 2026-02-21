@@ -19,7 +19,7 @@ int main() {
         showMenu();
         cin >> option;
 
-        if (option < 1 || option > 7) {
+        if (option < 1 || option > 14) {
             return 0;
         }
 
@@ -176,8 +176,158 @@ int main() {
                 
                 break;
             
-            // Printing conversion history
+            // C -> R
             case 7:
+                temp = inputC();
+
+                if (outOfRange(temp)) {
+                    pressEnter();
+                    break;
+                }
+                
+                tempAfter = CtoR(temp);
+
+                entry = {temp, Unit::Celsius, tempAfter, Unit::Rankine};
+
+                if (history.size() < 100) {
+                    history.push_back(entry);
+                } else {
+                    cout << "Brak miejsca do zapisania w historii!" << endl;
+                }
+
+                cout << temp << "°C -> " << tempAfter << "°R" << endl;
+                
+                pressEnter();
+                
+                break;
+            
+            // F -> R
+            case 8:
+                temp = inputF();
+
+                if (outOfRange(temp)) {
+                    pressEnter();
+                    break;
+                }
+                
+                tempAfter = FtoR(temp);
+
+                entry = {temp, Unit::Fahrenheit, tempAfter, Unit::Rankine};
+
+                if (history.size() < 100) {
+                    history.push_back(entry);
+                } else {
+                    cout << "Brak miejsca do zapisania w historii!" << endl;
+                }
+
+                cout << temp << "°F -> " << tempAfter << "°R" << endl;
+                
+                pressEnter();
+                
+                break;
+                
+            // K -> R
+            case 9:
+                temp = inputK();
+
+                if (outOfRange(temp)) {
+                    pressEnter();
+                    break;
+                }
+                
+                tempAfter = KtoR(temp);
+
+                entry = {temp, Unit::Kelvin, tempAfter, Unit::Rankine};
+
+                if (history.size() < 100) {
+                    history.push_back(entry);
+                } else {
+                    cout << "Brak miejsca do zapisania w historii!" << endl;
+                }
+
+                cout << temp << "K -> " << tempAfter << "°R" << endl;
+                
+                pressEnter();
+                
+                break;
+
+            // R -> C
+            case 10:
+                temp = inputR();
+
+                if (outOfRange(temp)) {
+                    pressEnter();
+                    break;
+                }
+                
+                tempAfter = RtoC(temp);
+
+                entry = {temp, Unit::Rankine, tempAfter, Unit::Celsius};
+
+                if (history.size() < 100) {
+                    history.push_back(entry);
+                } else {
+                    cout << "Brak miejsca do zapisania w historii!" << endl;
+                }
+
+                cout << temp << "°R -> " << tempAfter << "°C" << endl;
+                
+                pressEnter();
+                
+                break;
+
+            // R -> F
+            case 11:
+                temp = inputR();
+
+                if (outOfRange(temp)) {
+                    pressEnter();
+                    break;
+                }
+                
+                tempAfter = RtoF(temp);
+
+                entry = {temp, Unit::Rankine, tempAfter, Unit::Fahrenheit};
+
+                if (history.size() < 100) {
+                    history.push_back(entry);
+                } else {
+                    cout << "Brak miejsca do zapisania w historii!" << endl;
+                }
+
+                cout << temp << "°R -> " << tempAfter << "°F" << endl;
+                
+                pressEnter();
+                
+                break;
+
+            // R -> K
+            case 12:
+                temp = inputR();
+
+                if (outOfRange(temp)) {
+                    pressEnter();
+                    break;
+                }
+                
+                tempAfter = RtoK(temp);
+
+                entry = {temp, Unit::Rankine, tempAfter, Unit::Kelvin};
+
+                if (history.size() < 100) {
+                    history.push_back(entry);
+                } else {
+                    cout << "Brak miejsca do zapisania w historii!" << endl;
+                }
+
+                cout << temp << "°R -> " << tempAfter << "K" << endl;
+                
+                pressEnter();
+                
+                break;
+
+            // Printing conversion history
+            case 13:
                 cout << "\033[2J\033[1;1H";
                 
                 showHistoryMenu();
@@ -204,14 +354,19 @@ int main() {
                         pressEnter();
                         break;
                     
-                    // Print everything
                     case 4:
+                        printVector(history, Unit::Rankine);
+                        pressEnter();
+                        break;
+
+                    // Print everything
+                    case 5:
                         printVector(history);
                         pressEnter();
                         break;
                     
                     // Edit the history
-                    case 5:
+                    case 6:
                         cout << "\033[2J\033[1;1H";
 
                         printVector(history);

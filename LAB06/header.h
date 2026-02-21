@@ -7,7 +7,7 @@ using namespace std;
 
 #define HEADER_INCLUDE
 
-enum class Unit { Kelvin, Celsius, Fahrenheit };
+enum class Unit { Celsius, Fahrenheit, Kelvin, Rankine };
 
 struct Entry {
     double before;
@@ -27,6 +27,8 @@ double inputF();
 
 double inputK();
 
+double inputR();
+
 double FtoC (double F);
 
 double FtoK (double F);
@@ -38,6 +40,19 @@ double CtoK (double C);
 double KtoC (double K);
 
 double KtoF (double K);
+
+double CtoR (double C);
+
+double FtoR (double F);
+
+double KtoR (double K);
+
+double RtoF (double R);
+
+double RtoC (double R);
+
+double RtoK (double R);
+
 
 void showMenu();
 
